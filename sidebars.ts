@@ -31,6 +31,7 @@ const sidebars: SidebarsConfig = {
         "guides/managing-webhooks",
         "guides/dead-letter-queue",
         "guides/verifying-signatures",
+        "guides/analytics",
         "guides/common-vendors",
       ],
     },
