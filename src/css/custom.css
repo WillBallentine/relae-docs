@@ -1,30 +1,149 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Relae Brand Colors
+ * Primary: #1CC7A8 (Teal)
+ * Dark: #050C47 (Navy Blue)
+ * Accent: #0a1270 (Deep Blue)
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #1cc7a8;
+  --ifm-color-primary-dark: #19b397;
+  --ifm-color-primary-darker: #18a98f;
+  --ifm-color-primary-darkest: #148b75;
+  --ifm-color-primary-light: #1fdbb9;
+  --ifm-color-primary-lighter: #2de5c1;
+  --ifm-color-primary-lightest: #50ead1;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Custom brand colors */
+  --relae-dark: #050c47;
+  --relae-accent: #0a1270;
+  --relae-teal: #1cc7a8;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+[data-theme="dark"] {
+  --ifm-color-primary: #1cc7a8;
+  --ifm-color-primary-dark: #19b397;
+  --ifm-color-primary-darker: #18a98f;
+  --ifm-color-primary-darkest: #148b75;
+  --ifm-color-primary-light: #1fdbb9;
+  --ifm-color-primary-lighter: #2de5c1;
+  --ifm-color-primary-lightest: #50ead1;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Dark mode specific */
+  --ifm-background-color: #050c47;
+  --ifm-navbar-background-color: rgba(5, 12, 71, 0.8);
+  --ifm-footer-background-color: #050c47;
+}
+
+/* Navbar styling */
+.navbar {
+  border-bottom: 1px solid rgba(28, 199, 168, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.navbar__logo {
+  height: 40px;
+}
+
+/* Sidebar styling */
+.menu {
+  font-weight: 500;
+}
+
+.menu__link--active {
+  border-left: 3px solid var(--ifm-color-primary);
+  padding-left: calc(var(--ifm-menu-link-padding-horizontal) - 3px);
+}
+
+/* Code blocks */
+code {
+  background-color: rgba(28, 199, 168, 0.1);
+  border: 1px solid rgba(28, 199, 168, 0.2);
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+}
+
+/* Admonitions (info boxes) */
+.admonition {
+  border-left-width: 4px;
+}
+
+.admonition-note {
+  border-left-color: var(--ifm-color-primary);
+}
+
+/* Tables */
+table {
+  display: block;
+  overflow-x: auto;
+}
+
+th {
+  background-color: rgba(28, 199, 168, 0.1);
+}
+
+/* Custom button styles */
+.button--primary {
+  background-color: var(--ifm-color-primary);
+  color: var(--relae-dark);
+  font-weight: 600;
+}
+
+.button--primary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  color: var(--relae-dark);
+}
+
+/* Gradient background for hero sections */
+.hero--primary {
+  background: linear-gradient(
+    135deg,
+    var(--relae-dark) 0%,
+    var(--relae-accent) 100%
+  );
+}
+
+/* Custom card styling */
+.card {
+  border: 1px solid rgba(28, 199, 168, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(28, 199, 168, 0.2);
+}
+
+/* Responsive code blocks */
+@media (max-width: 768px) {
+  pre {
+    font-size: 0.85rem;
+  }
+}
+
+/* Search bar styling (if using Algolia DocSearch) */
+.DocSearch-Button {
+  background-color: rgba(28, 199, 168, 0.1);
+  border: 1px solid rgba(28, 199, 168, 0.2);
+}
+
+.DocSearch-Button:hover {
+  background-color: rgba(28, 199, 168, 0.2);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom highlight for important content */
+mark,
+.highlight {
+  background-color: rgba(28, 199, 168, 0.3);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
 }
