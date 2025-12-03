@@ -76,15 +76,19 @@ graph TB
 
 4. **Forward to Your Application**
    - Relae forwards the webhook to your configured destination URL
-   - Adds custom headers (authentication, routing, etc.)
-   - Signs the outgoing webhook with HMAC-SHA256
-
-5. **Automatic Retry on Failure**
+   - Adds Relae-specific headers:
+     - `X-Relae-Event-ID`: Unique event identifier
+     - `X-Relae-Source`: The vendor name (e.g., `stripe`)
+     - `X-Relae-Timestamp`: Unix timestamp
+     - `X-Relae-Signature`: HMAC-SHA256 signature for verification
+     - `User-Agent`: `Relae-Webhook-Forwarder/1.0`
+   - Includes any custom headers you configured
+   - Signs the outgoing webhook with HMAC-SHA2565. **Automatic Retry on Failure**
    - If your app returns an error (5xx) or times out
    - Relae automatically retries up to 5 times
    - Uses exponential backoff (5s, 25s, 125s, 625s, 3125s)
 
-6. **Dead Letter Queue**
+5. **Dead Letter Queue**
    - After 5 failed attempts, event moves to DLQ
    - You can review, debug, and manually retry anytime
    - Never lose a webhook event
@@ -331,20 +335,11 @@ Currently supports:
 
 - All data encrypted at rest (AES-256)
 - All connections use TLS 1.2+
-- SOC 2 Type II certified (Enterprise)
 
 ### Privacy
 
 - We only store webhook payloads during retention period
 - No sharing of customer data
-- GDPR compliant
-
-### Infrastructure
-
-- Hosted on AWS
-- Multi-region redundancy
-- Daily backups
-- 99.9% uptime SLA (Enterprise)
 
 ## Getting Started
 
@@ -353,10 +348,3 @@ Ready to use Relae?
 1. [Sign up for a free account →](https://relaehook.com)
 2. [Follow the quick start guide →](/quickstart/overview)
 3. [Configure your first destination →](/quickstart/setup)
-
-## Next Steps
-
-- [Learn about Events →](/core-concepts/events)
-- [Understand Destinations →](/core-concepts/destinations)
-- [Explore Retry Logic →](/core-concepts/retries)
-- [View API Documentation →](/api/authentication)

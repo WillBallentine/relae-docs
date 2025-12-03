@@ -56,8 +56,6 @@ Click the **"Destinations"** tab in your dashboard.
 
 ### 4.2 Add a New Destination
 
-Click **"Add New Destinations"** and fill in the following:
-
 #### Required Fields
 
 | Field               | Description                         | Example                                      |
@@ -117,12 +115,6 @@ Click the **"Copy"** button to copy this URL. You'll use it in the next step.
 - Keep it secure - anyone with this URL can send webhooks to your app
 - You can rotate the URL anytime if it's compromised
   :::
-
-## Step 6: Save Your Endpoint Token (For Verification)
-
-Each destination also has an **Endpoint Token** that Relae uses to sign outgoing webhooks. You'll use this later to verify webhooks in your application.
-
-You can find it in the destination card under "Security" or by clicking "Edit" on the destination.
 
 :::tip Coming Up
 In the next section, we'll show you how to:
@@ -196,6 +188,7 @@ Great! Your account is set up and your first destination is configured. Now let'
 2. Wait 5 minutes (emails can be delayed)
 3. Click "Resend verification email" on the dashboard
 4. Contact support at [support@relaehook.com](mailto:support@relaehook.com)
+
 </details>
 
 <details>

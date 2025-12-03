@@ -12,7 +12,7 @@ Webhooks are critical for real-time integrations, but they're notoriously unreli
 - ❌ **Security concerns** with unverified webhooks
 - ❌ **Manual monitoring** required
 
-### Relae solves all of this:
+### Relae solves all of this
 
 - ✅ **Guaranteed delivery** with automatic retries
 - ✅ **Dead letter queue** to never lose an event
@@ -25,7 +25,7 @@ Webhooks are critical for real-time integrations, but they're notoriously unreli
 
 ```mermaid
 graph LR
-    A[Vendor<br/>Stripe, Shopify, etc.] -->|Sends webhook| B[Relae]
+    A[Vendor\nStripe, Shopify, GitHub, etc.] -->|Sends webhook| B[Relae Endpoint]
     B -->|Validates & stores| C[Your App]
     B -->|On failure| D[Dead Letter Queue]
     D -->|Manual retry| C
@@ -80,17 +80,19 @@ Add authentication tokens, API keys, or any custom headers to forwarded webhooks
     </div>
   </div>
 
-  <div className="card" style={{flex: '1', minWidth: '250px'}}>
-    <div className="card__header">
-      <h3>📚 Core Concepts</h3>
-    </div>
-    <div className="card__body">
-      <p>Understand how Relae works</p>
-    </div>
-    <div className="card__footer">
-      <a href="/core-concepts/what-is-relae" className="button button--secondary button--block">Learn More</a>
-    </div>
+<div className="card" style={{ flex: "1", minWidth: "250px" }}>
+  <div className="card__header">
+    <h3>📚 Core Concepts</h3>
   </div>
+  <div className="card__body">
+    <p>Understand how Relae works</p>
+  </div>
+  <div className="card__footer">
+
+      <a href="/core-concepts/what-is-relae" className="button button--primary button--block">Learn More</a>
+     </div>
+
+</div>
 
   <div className="card" style={{flex: '1', minWidth: '250px'}}>
     <div className="card__header">
@@ -100,7 +102,7 @@ Add authentication tokens, API keys, or any custom headers to forwarded webhooks
       <p>Complete API documentation</p>
     </div>
     <div className="card__footer">
-      <a href="/api/authentication" className="button button--secondary button--block">View API Docs</a>
+      <a href="/api/authentication" className="button button--primary button--block">View API Docs</a>
     </div>
   </div>
 </div>

@@ -27,7 +27,12 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Guides",
       collapsed: false,
-      items: ["guides/managing-webhooks", "guides/dead-letter-queue"],
+      items: [
+        "guides/managing-webhooks",
+        "guides/dead-letter-queue",
+        "guides/verifying-signatures",
+        "guides/common-vendors",
+      ],
     },
   ],
 };

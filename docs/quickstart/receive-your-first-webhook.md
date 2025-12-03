@@ -151,15 +151,17 @@ Now check that the webhook was forwarded to your destination URL:
 
 ### What Gets Forwarded?
 
-Relae forwards:
+Relae forwards the webhook with these headers:
 
 ```json
 {
   "headers": {
     "Content-Type": "application/json",
-    "X-Relae-Signature": "sha256=abc123...",
+    "User-Agent": "Relae-Webhook-Forwarder/1.0",
+    "X-Relae-Event-ID": "evt_abc123...",
+    "X-Relae-Source": "stripe",
     "X-Relae-Timestamp": "1701234567",
-    "X-Relae-Source": "stripe"
+    "X-Relae-Signature": "t=1701234567,v1=abc123..."
     // ... plus any custom headers you configured
   },
   "body": {
@@ -167,6 +169,19 @@ Relae forwards:
   }
 }
 ```
+
+#### Header Descriptions
+
+| Header              | Description                       | Example                       |
+| ------------------- | --------------------------------- | ----------------------------- |
+| `Content-Type`      | Always `application/json`         | `application/json`            |
+| `User-Agent`        | Identifies Relae as the forwarder | `Relae-Webhook-Forwarder/1.0` |
+| `X-Relae-Event-ID`  | Unique ID for this webhook event  | `evt_abc123...`               |
+| `X-Relae-Source`    | The vendor that sent the webhook  | `stripe`, `shopify`, `github` |
+| `X-Relae-Timestamp` | Unix timestamp when forwarded     | `1701234567`                  |
+| `X-Relae-Signature` | HMAC signature for verification   | `t=1701234567,v1=abc123...`   |
+
+Plus any **custom headers** you configured for this destination.
 
 ## Step 5: Verify the HMAC Signature (Recommended)
 
@@ -176,15 +191,21 @@ For security, you should verify that the webhook actually came from Relae and wa
 
 Every forwarded webhook includes:
 
-- `X-Relae-Signature`: HMAC-SHA256 signature
-- `X-Relae-Timestamp`: Unix timestamp
+- `X-Relae-Signature`: Signature in format `t=timestamp,v1=signature`
+- The timestamp and HMAC-SHA256 signature combined
+
+### Get Your Webhook Secret
+
+1. Go to your Relae dashboard
+2. Click **Account** → **Webhooks** tab
+3. Copy your **Relae Webhook Secret** (starts with `whsec_`)
+4. Store it securely in your environment variables
 
 ### Verification Process
 
-1. Get your endpoint token from the destination in your Relae dashboard
-2. Extract the signature and timestamp from headers
-3. Compute HMAC-SHA256 of: `{timestamp}.{raw_body}`
-4. Compare with the signature in the header
+1. Extract the signature and timestamp from the `X-Relae-Signature` header
+2. Compute HMAC-SHA256 of: `{timestamp}.{raw_body}`
+3. Compare with the signature from the header
 
 ### Code Examples
 
@@ -193,29 +214,40 @@ Every forwarded webhook includes:
 ```javascript
 const crypto = require("crypto");
 
-app.post("/webhooks/stripe", (req, res) => {
-  const signature = req.headers["x-relae-signature"];
-  const timestamp = req.headers["x-relae-timestamp"];
-  const endpointToken = process.env.RELAE_ENDPOINT_TOKEN;
+function verifyRelaeWebhook(payload, signature, secret) {
+  // signature format: t=timestamp,v1=signature
+  const [t, v1] = signature.split(",").map((s) => s.split("=")[1]);
 
-  // Get raw body
-  const rawBody = JSON.stringify(req.body);
+  const signedPayload = `${t}.${payload}`;
 
-  // Compute expected signature
-  const payload = `${timestamp}.${rawBody}`;
-  const expectedSignature = crypto
-    .createHmac("sha256", endpointToken)
-    .update(payload)
+  const hmac = crypto
+    .createHmac("sha256", secret)
+    .update(signedPayload)
     .digest("hex");
 
-  // Verify signature
-  if (`sha256=${expectedSignature}` !== signature) {
-    return res.status(401).send("Invalid signature");
+  return crypto.timingSafeEqual(Buffer.from(v1), Buffer.from(hmac));
+}
+
+// Usage in Express
+app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
+  const signature = req.headers["x-relae-signature"];
+  const payload = req.body.toString();
+
+  const isValid = verifyRelaeWebhook(
+    payload,
+    signature,
+    process.env.RELAE_WEBHOOK_SECRET,
+  );
+
+  if (!isValid) {
+    return res.status(401).json({ error: "Invalid signature" });
   }
 
-  // Signature is valid - process the webhook
-  console.log("Webhook received:", req.body);
-  res.status(200).send("OK");
+  // Process webhook
+  const event = JSON.parse(payload);
+  console.log("Verified webhook:", event);
+
+  res.json({ received: true });
 });
 ```
 
@@ -224,35 +256,49 @@ app.post("/webhooks/stripe", (req, res) => {
 ```python
 import hmac
 import hashlib
-from flask import Flask, request
 
-app = Flask(__name__)
+def verify_relae_webhook(payload: str, signature: str, secret: str) -> bool:
+    """Verify webhook signature from Relae"""
+    # Parse signature: t=timestamp,v1=signature
+    sig_parts = dict(item.split('=') for item in signature.split(','))
+    timestamp = sig_parts.get('t')
+    received_sig = sig_parts.get('v1')
 
-@app.route('/webhooks/stripe', methods=['POST'])
-def webhook():
-    signature = request.headers.get('X-Relae-Signature')
-    timestamp = request.headers.get('X-Relae-Timestamp')
-    endpoint_token = os.getenv('RELAE_ENDPOINT_TOKEN')
+    if not timestamp or not received_sig:
+        return False
 
-    # Get raw body
-    raw_body = request.get_data(as_text=True)
+    # Create signed payload
+    signed_payload = f"{timestamp}.{payload}"
 
-    # Compute expected signature
-    payload = f"{timestamp}.{raw_body}"
-    expected_signature = hmac.new(
-        endpoint_token.encode(),
-        payload.encode(),
+    # Compute HMAC
+    expected_sig = hmac.new(
+        secret.encode('utf-8'),
+        signed_payload.encode('utf-8'),
         hashlib.sha256
     ).hexdigest()
 
-    # Verify signature
-    if f"sha256={expected_signature}" != signature:
-        return "Invalid signature", 401
+    # Constant-time comparison
+    return hmac.compare_digest(expected_sig, received_sig)
 
-    # Signature is valid - process the webhook
-    data = request.get_json()
-    print(f"Webhook received: {data}")
-    return "OK", 200
+# Usage in Flask
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    signature = request.headers.get('X-Relae-Signature')
+    payload = request.get_data(as_text=True)
+    secret = os.environ['RELAE_WEBHOOK_SECRET']
+
+    if not verify_relae_webhook(payload, signature, secret):
+        return jsonify({'error': 'Invalid signature'}), 401
+
+    # Process webhook
+    event = request.get_json()
+    print(f"Verified webhook: {event}")
+
+    return jsonify({'received': True})
 ```
 
 #### Go
@@ -268,32 +314,167 @@ import (
     "io"
     "net/http"
     "os"
+    "strings"
 )
 
+func verifyRelaeWebhook(payload, signature, secret string) bool {
+    // Parse signature: t=timestamp,v1=signature
+    parts := strings.Split(signature, ",")
+    var timestamp, sig string
+
+    for _, part := range parts {
+        kv := strings.SplitN(part, "=", 2)
+        if len(kv) != 2 {
+            continue
+        }
+        switch kv[0] {
+        case "t":
+            timestamp = kv[1]
+        case "v1":
+            sig = kv[1]
+        }
+    }
+
+    if timestamp == "" || sig == "" {
+        return false
+    }
+
+    // Create signed payload
+    signedPayload := fmt.Sprintf("%s.%s", timestamp, payload)
+
+    // Compute HMAC
+    mac := hmac.New(sha256.New, []byte(secret))
+    mac.Write([]byte(signedPayload))
+    expectedSig := hex.EncodeToString(mac.Sum(nil))
+
+    // Constant-time comparison
+    return hmac.Equal([]byte(sig), []byte(expectedSig))
+}
+
+// Usage in HTTP handler
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
     signature := r.Header.Get("X-Relae-Signature")
-    timestamp := r.Header.Get("X-Relae-Timestamp")
-    endpointToken := os.Getenv("RELAE_ENDPOINT_TOKEN")
 
-    // Read raw body
-    body, _ := io.ReadAll(r.Body)
-
-    // Compute expected signature
-    payload := fmt.Sprintf("%s.%s", timestamp, string(body))
-    mac := hmac.New(sha256.New, []byte(endpointToken))
-    mac.Write([]byte(payload))
-    expectedSignature := hex.EncodeToString(mac.Sum(nil))
-
-    // Verify signature
-    if fmt.Sprintf("sha256=%s", expectedSignature) != signature {
-        http.Error(w, "Invalid signature", http.StatusUnauthorized)
+    payload, err := io.ReadAll(r.Body)
+    if err != nil {
+        http.Error(w, "Failed to read body", 400)
         return
     }
 
-    // Signature is valid - process the webhook
-    fmt.Println("Webhook received:", string(body))
-    w.WriteHeader(http.StatusOK)
+    secret := os.Getenv("RELAE_WEBHOOK_SECRET")
+
+    if !verifyRelaeWebhook(string(payload), signature, secret) {
+        http.Error(w, "Invalid signature", 401)
+        return
+    }
+
+    // Process webhook
+    var event map[string]interface{}
+    json.Unmarshal(payload, &event)
+    fmt.Printf("Verified webhook: %v\n", event)
+
+    w.WriteHeader(200)
+    json.NewEncoder(w).Encode(map[string]bool{"received": true})
 }
+```
+
+#### Ruby / Sinatra
+
+```ruby
+require 'openssl'
+
+def verify_relae_webhook(payload, signature, secret)
+  # Parse signature: t=timestamp,v1=signature
+  sig_parts = signature.split(',').map { |part| part.split('=') }.to_h
+  timestamp = sig_parts['t']
+  received_sig = sig_parts['v1']
+
+  return false if timestamp.nil? || received_sig.nil?
+
+  # Create signed payload
+  signed_payload = "#{timestamp}.#{payload}"
+
+  # Compute HMAC
+  expected_sig = OpenSSL::HMAC.hexdigest(
+    OpenSSL::Digest.new('sha256'),
+    secret,
+    signed_payload
+  )
+
+  # Constant-time comparison
+  Rack::Utils.secure_compare(expected_sig, received_sig)
+end
+
+# Usage in Sinatra
+post '/webhook' do
+  request.body.rewind
+  payload = request.body.read
+  signature = request.env['HTTP_X_RELAE_SIGNATURE']
+  secret = ENV['RELAE_WEBHOOK_SECRET']
+
+  unless verify_relae_webhook(payload, signature, secret)
+    halt 401, { error: 'Invalid signature' }.to_json
+  end
+
+  # Process webhook
+  event = JSON.parse(payload)
+  puts "Verified webhook: #{event}"
+
+  { received: true }.to_json
+end
+```
+
+#### PHP
+
+```php
+<?php
+function verifyRelaeWebhook($payload, $signature, $secret) {
+    // Parse signature: t=timestamp,v1=signature
+    $parts = explode(',', $signature);
+    $timestamp = null;
+    $sig = null;
+
+    foreach ($parts as $part) {
+        list($key, $value) = explode('=', $part, 2);
+        if ($key === 't') {
+            $timestamp = $value;
+        } elseif ($key === 'v1') {
+            $sig = $value;
+        }
+    }
+
+    if (!$timestamp || !$sig) {
+        return false;
+    }
+
+    // Create signed payload
+    $signedPayload = $timestamp . '.' . $payload;
+
+    // Compute HMAC
+    $expectedSig = hash_hmac('sha256', $signedPayload, $secret);
+
+    // Constant-time comparison
+    return hash_equals($expectedSig, $sig);
+}
+
+// Usage
+$payload = file_get_contents('php://input');
+$signature = $_SERVER['HTTP_X_RELAE_SIGNATURE'] ?? '';
+$secret = getenv('RELAE_WEBHOOK_SECRET');
+
+if (!verifyRelaeWebhook($payload, $signature, $secret)) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Invalid signature']);
+    exit;
+}
+
+// Process webhook
+$event = json_decode($payload, true);
+error_log('Verified webhook: ' . print_r($event, true));
+
+http_response_code(200);
+echo json_encode(['received' => true]);
+?>
 ```
 
 :::tip Timestamp Tolerance
@@ -309,6 +490,15 @@ if (Math.abs(now - parseInt(timestamp)) > TOLERANCE_SECONDS) {
 ```
 
 :::
+
+:::info Where to Find Your Secret
+Get your Relae webhook secret from:
+
+1. Dashboard → Account → Webhooks tab
+2. Look for "Relae Webhook Secret"
+3. Copy the value (starts with `whsec_`)
+4. Store in environment variable: `RELAE_WEBHOOK_SECRET`
+   :::
 
 ## Step 6: Test Failure Scenarios
 
@@ -351,6 +541,7 @@ Congratulations! You've successfully:
 - ✅ Verified the HMAC signature
 - ✅ Tested the failure/retry mechanism
 
+<!--
 ## Next Steps
 
 Now that you're set up, explore more features:
@@ -359,6 +550,7 @@ Now that you're set up, explore more features:
 - [Understand the Retry Logic →](/core-concepts/retries)
 - [View Analytics →](/guides/analytics) (Scale tier)
 - [Set up Multiple Vendors →](/guides/common-vendors)
+-->
 
 ## Need Help?
 

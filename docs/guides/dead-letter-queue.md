@@ -294,14 +294,6 @@ app.post("/webhooks", async (req, res) => {
 });
 ```
 
-### 5. Set Up Alerts
-
-Get notified when events hit the DLQ:
-
-1. Check DLQ count daily
-2. Set up monitoring for high failure rates
-3. Create alerts for specific error types
-
 ## Understanding Retry Behavior
 
 ### What Gets Retried
@@ -440,6 +432,7 @@ Failed events are **automatically deleted** after the retention period. If you n
 1. Export the payload (copy/paste)
 2. Store in your own systems
 3. Or upgrade to a tier with longer retention
+
    :::
 
 ## Preventing DLQ Events
@@ -490,9 +483,6 @@ app.post("/webhooks", async (req, res) => {
 
 ## Next Steps
 
-- [Understand Automatic Retries →](/core-concepts/retries)
-- [Learn About Events →](/core-concepts/events)
-- [View Analytics →](/guides/analytics)
 - [Verify Signatures →](/guides/verifying-signatures)
 
 ## Need Help?

@@ -38,6 +38,11 @@ const config: Config = {
     ],
   ],
 
+  themes: ["@docusaurus/theme-mermaid"],
+  markdown: {
+    mermaid: true,
+  },
+
   themeConfig: {
     image: "img/relae-social-card.png",
     navbar: {
@@ -53,11 +58,7 @@ const config: Config = {
           position: "left",
           label: "Docs",
         },
-        {
-          href: "https://relaehook.com",
-          label: "Home",
-          position: "right",
-        },
+        { href: "https://relaehook.com", label: "Home", position: "right" },
         {
           href: "https://relaehook.com/dashboard",
           label: "Dashboard",
@@ -76,35 +77,17 @@ const config: Config = {
         {
           title: "Docs",
           items: [
-            {
-              label: "Getting Started",
-              to: "/quickstart/overview",
-            },
-            {
-              label: "Core Concepts",
-              to: "/core-concepts/what-is-relae",
-            },
-            {
-              label: "API Reference",
-              to: "/api/authentication",
-            },
+            { label: "Getting Started", to: "/quickstart/overview" },
+            { label: "Core Concepts", to: "/core-concepts/what-is-relae" },
+            { label: "API Reference", to: "/api/authentication" },
           ],
         },
         {
           title: "Product",
           items: [
-            {
-              label: "Dashboard",
-              href: "https://relaehook.com/dashboard",
-            },
-            {
-              label: "Pricing",
-              href: "https://relaehook.com/#pricing",
-            },
-            {
-              label: "Sign Up",
-              href: "https://relaehook.com",
-            },
+            { label: "Dashboard", href: "https://relaehook.com/dashboard" },
+            { label: "Pricing", href: "https://relaehook.com/#pricing" },
+            { label: "Sign Up", href: "https://relaehook.com" },
           ],
         },
         {
@@ -114,10 +97,7 @@ const config: Config = {
               label: "GitHub",
               href: "https://github.com/WillBallentine/relae-docs",
             },
-            {
-              label: "Support",
-              href: "mailto:support@relaehook.com",
-            },
+            { label: "Support", href: "mailto:support@relaehook.com" },
           ],
         },
       ],
