@@ -32,6 +32,7 @@ const sidebars: SidebarsConfig = {
         "guides/dead-letter-queue",
         "guides/verifying-signatures",
         "guides/analytics",
+        "guides/account-settings",
         "guides/common-vendors",
       ],
     },
