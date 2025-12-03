@@ -34,6 +34,12 @@ const sidebars: SidebarsConfig = {
         "guides/common-vendors",
       ],
     },
+    {
+      type: "category",
+      label: "API",
+      collapsed: false,
+      items: ["api/authentication"],
+    },
   ],
 };
 
