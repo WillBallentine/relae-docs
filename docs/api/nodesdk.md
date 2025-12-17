@@ -574,7 +574,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## Support
 
 - **Documentation:** [https://docs.relaehook.com](https://docs.relaehook.com)
-- **Email:** <support@relaehook.com>
+- **Email:** [Email Support](support@relaehook.com)
 - **Issues:** [GitHub Issues](https://github.com/WillBallentine/relae-node/issues)
 
 ---
