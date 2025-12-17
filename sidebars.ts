@@ -38,9 +38,9 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "API",
+      label: "SDK",
       collapsed: false,
-      items: ["api/authentication"],
+      items: ["api/nodesdk"],
     },
   ],
 };

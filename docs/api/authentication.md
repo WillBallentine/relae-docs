@@ -16,8 +16,7 @@ We are actively building first-class SDKs for:
 
 These SDKs will simplify:
 
-- Managing API keys
-- Sending test webhooks
+- Retrying dead letter queue events
 - Retrieving event logs
 - Managing destinations
 - Verifying signatures

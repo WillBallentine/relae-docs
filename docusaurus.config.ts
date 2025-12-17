@@ -79,7 +79,7 @@ const config: Config = {
           items: [
             { label: "Getting Started", to: "/quickstart/overview" },
             { label: "Core Concepts", to: "/core-concepts/what-is-relae" },
-            { label: "API Reference", to: "/api/authentication" },
+            { label: "SDK Reference", to: "/api/nodesdk" },
           ],
         },
         {
