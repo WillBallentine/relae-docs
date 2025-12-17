@@ -211,44 +211,53 @@ Every forwarded webhook includes:
 
 #### Node.js / Express
 
-```javascript
-const crypto = require("crypto");
+#### Relae Node SDK
 
-function verifyRelaeWebhook(payload, signature, secret) {
-  // signature format: t=timestamp,v1=signature
-  const [t, v1] = signature.split(",").map((s) => s.split("=")[1]);
+Relae offers a comprehensive Node SDK that includes signature verification.
 
-  const signedPayload = `${t}.${payload}`;
+- [SDK Documentation →](/api/nodesdk)
 
-  const hmac = crypto
-    .createHmac("sha256", secret)
-    .update(signedPayload)
-    .digest("hex");
+#### `Utils.verifyRelaeSignature(body, signature, secret)`
 
-  return crypto.timingSafeEqual(Buffer.from(v1), Buffer.from(hmac));
-}
+Verify the authenticity of an incoming Relae webhook using HMAC signature verification.
 
-// Usage in Express
-app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
-  const signature = req.headers["x-relae-signature"];
-  const payload = req.body.toString();
+```typescript
+import { Utils } from "relae";
 
-  const isValid = verifyRelaeWebhook(
-    payload,
-    signature,
-    process.env.RELAE_WEBHOOK_SECRET,
-  );
+const isValid = Utils.verifyRelaeSignature(
+  body: string,      // Raw request body as string
+  signature: string, // X-Relae-Signature header value
+  secret: string     // Your webhook secret
+  toleranceSec?: number // Optional: max age in seconds (default 300)
+): boolean;
+```
 
-  if (!isValid) {
-    return res.status(401).json({ error: "Invalid signature" });
-  }
+**Example with Express:**
 
-  // Process webhook
-  const event = JSON.parse(payload);
-  console.log("Verified webhook:", event);
+```typescript
+import express from "express";
+import { Utils } from "relae";
 
-  res.json({ received: true });
-});
+const app = express();
+
+app.post(
+  "/webhooks/relae",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    const signature = req.headers["x-relae-signature"] as string;
+    const secret = process.env.RELAE_WEBHOOK_SECRET!;
+    const body = req.body.toString();
+
+    if (!Utils.verifyRelaeSignature(body, signature, secret)) {
+      return res.status(401).send("Invalid signature");
+    }
+
+    const payload = JSON.parse(body);
+    console.log("Valid webhook received:", payload);
+
+    res.status(200).send("OK");
+  },
+);
 ```
 
 #### Python / Flask
