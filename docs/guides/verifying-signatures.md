@@ -76,64 +76,53 @@ Never commit your webhook secret to version control. Always use environment vari
 
 ### Node.js / Express
 
-```javascript
-const crypto = require("crypto");
-const express = require("express");
+#### Relae Node SDK
 
-function verifyRelaeWebhook(payload, signature, secret) {
-  // Parse signature: t=timestamp,v1=signature
-  const parts = signature.split(",");
-  const timestamp = parts.find((p) => p.startsWith("t=")).split("=")[1];
-  const receivedSig = parts.find((p) => p.startsWith("v1=")).split("=")[1];
+Relae offers a comprehensive Node SDK that includes signature verification.
 
-  // Create signed payload
-  const signedPayload = `${timestamp}.${payload}`;
+- [SDK Documentation →](/api/nodesdk)
 
-  // Compute HMAC
-  const expectedSig = crypto
-    .createHmac("sha256", secret)
-    .update(signedPayload)
-    .digest("hex");
+#### `Utils.verifyRelaeSignature(body, signature, secret)`
 
-  // Constant-time comparison
-  return crypto.timingSafeEqual(
-    Buffer.from(receivedSig),
-    Buffer.from(expectedSig),
-  );
-}
+Verify the authenticity of an incoming Relae webhook using HMAC signature verification.
 
-// Express middleware
+```typescript
+import { Utils } from "relae";
+
+const isValid = Utils.verifyRelaeSignature(
+  body: string,      // Raw request body as string
+  signature: string, // X-Relae-Signature header value
+  secret: string     // Your webhook secret
+  toleranceSec?: number // Optional: max age in seconds (default 300)
+): boolean;
+```
+
+**Example with Express:**
+
+```typescript
+import express from "express";
+import { Utils } from "relae";
+
 const app = express();
 
-app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
-  const signature = req.headers["x-relae-signature"];
-  const payload = req.body.toString();
-  const secret = process.env.RELAE_WEBHOOK_SECRET;
+app.post(
+  "/webhooks/relae",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    const signature = req.headers["x-relae-signature"] as string;
+    const secret = process.env.RELAE_WEBHOOK_SECRET!;
+    const body = req.body.toString();
 
-  // Verify signature
-  if (!verifyRelaeWebhook(payload, signature, secret)) {
-    return res.status(401).json({ error: "Invalid signature" });
-  }
+    if (!Utils.verifyRelaeSignature(body, signature, secret)) {
+      return res.status(401).send("Invalid signature");
+    }
 
-  // Optional: Check timestamp tolerance
-  const timestamp = parseInt(signature.split(",")[0].split("=")[1]);
-  const now = Math.floor(Date.now() / 1000);
-  const tolerance = 300; // 5 minutes
+    const payload = JSON.parse(body);
+    console.log("Valid webhook received:", payload);
 
-  if (Math.abs(now - timestamp) > tolerance) {
-    return res.status(401).json({ error: "Timestamp too old" });
-  }
-
-  // Process webhook
-  const event = JSON.parse(payload);
-  console.log("Event ID:", req.headers["x-relae-event-id"]);
-  console.log("Source:", req.headers["x-relae-source"]);
-  console.log("Verified webhook:", event);
-
-  res.json({ received: true });
-});
-
-app.listen(3000);
+    res.status(200).send("OK");
+  },
+);
 ```
 
 ### Python / Flask
@@ -630,7 +619,7 @@ This happens when:
 
 - [Managing Webhooks →](/guides/managing-webhooks)
 - [Dead Letter Queue →](/guides/dead-letter-queue)
-- [API Documentation →](/api/endpoints)
+- [SDK Documentation →](/api/nodesdk)
 
 ## Need Help?
 

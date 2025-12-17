@@ -1,296 +1,2269 @@
 <!doctype html>
-<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-core-concepts/what-is-relae" data-has-hydrated="false">
-<head>
-<meta charset="UTF-8">
-<meta name="generator" content="Docusaurus v3.9.2">
-<title data-rh="true">What is Relae? | Relae Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://docs.relaehook.com/img/relae-social-card.png"><meta data-rh="true" name="twitter:image" content="https://docs.relaehook.com/img/relae-social-card.png"><meta data-rh="true" property="og:url" content="https://docs.relaehook.com/core-concepts/what-is-relae"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="What is Relae? | Relae Documentation"><meta data-rh="true" name="description" content="Relae is a webhook relay service that sits between your vendors (like Stripe, Shopify, GitHub) and your application, ensuring reliable webhook delivery with automatic retries, monitoring, and security features."><meta data-rh="true" property="og:description" content="Relae is a webhook relay service that sits between your vendors (like Stripe, Shopify, GitHub) and your application, ensuring reliable webhook delivery with automatic retries, monitoring, and security features."><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://docs.relaehook.com/core-concepts/what-is-relae"><link data-rh="true" rel="alternate" href="https://docs.relaehook.com/core-concepts/what-is-relae" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.relaehook.com/core-concepts/what-is-relae" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"What is Relae?","item":"https://docs.relaehook.com/core-concepts/what-is-relae"}]}</script><link rel="stylesheet" href="/assets/css/styles.c4f597b4.css">
-<script src="/assets/js/runtime~main.339650ba.js" defer="defer"></script>
-<script src="/assets/js/main.01ddb77a.js" defer="defer"></script>
-</head>
-<body class="navigation-with-keyboard">
-<svg style="display: none;"><defs>
-<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
-</defs></svg>
-<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/relae_logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/relae_logo.svg" alt="Relae Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/relae_logo.svg" alt="Relae Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Relae</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/intro">Docs</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://relaehook.com" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Home<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://relaehook.com/dashboard" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Dashboard<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/WillBallentine/relae-docs" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/intro"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/quickstart/overview"><span title="Quick Start" class="categoryLinkLabel_W154">Quick Start</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/quickstart/overview"><span title="Quick Start Overview" class="linkLabel_WmDU">Quick Start Overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/quickstart/setup"><span title="Account Setup" class="linkLabel_WmDU">Account Setup</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/quickstart/receive-your-first-webhook"><span title="Receive Your First Webhook" class="linkLabel_WmDU">Receive Your First Webhook</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/core-concepts/what-is-relae"><span title="Core Concepts" class="categoryLinkLabel_W154">Core Concepts</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/core-concepts/what-is-relae"><span title="What is Relae?" class="linkLabel_WmDU">What is Relae?</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/guides/managing-webhooks"><span title="Guides" class="categoryLinkLabel_W154">Guides</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/guides/managing-webhooks"><span title="Managing Webhooks" class="linkLabel_WmDU">Managing Webhooks</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/guides/dead-letter-queue"><span title="Dead Letter Queue (DLQ)" class="linkLabel_WmDU">Dead Letter Queue (DLQ)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/guides/verifying-signatures"><span title="Verifying Webhook Signatures" class="linkLabel_WmDU">Verifying Webhook Signatures</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Core Concepts</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">What is Relae?</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>What is Relae?</h1></header>
-<p>Relae is a <strong>webhook relay service</strong> that sits between your vendors (like Stripe, Shopify, GitHub) and your application, ensuring reliable webhook delivery with automatic retries, monitoring, and security features.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-problem-relae-solves">The Problem Relae Solves<a href="#the-problem-relae-solves" class="hash-link" aria-label="Direct link to The Problem Relae Solves" title="Direct link to The Problem Relae Solves" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="webhooks-are-critical-but-unreliable">Webhooks Are Critical But Unreliable<a href="#webhooks-are-critical-but-unreliable" class="hash-link" aria-label="Direct link to Webhooks Are Critical But Unreliable" title="Direct link to Webhooks Are Critical But Unreliable" translate="no">​</a></h3>
-<p>Modern applications rely on webhooks for real-time updates:</p>
-<ul>
-<li class="">Payment confirmations from Stripe</li>
-<li class="">Order updates from Shopify</li>
-<li class="">Code push notifications from GitHub</li>
-<li class="">Shipping updates from logistics providers</li>
-</ul>
-<p>But webhooks have several inherent problems:</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-lost-events">1. Lost Events<a href="#1-lost-events" class="hash-link" aria-label="Direct link to 1. Lost Events" title="Direct link to 1. Lost Events" translate="no">​</a></h4>
-<p>If your server is down during maintenance or experiencing issues, webhooks are simply lost. Most vendors don&#x27;t retry or have very limited retry logic.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-no-visibility">2. No Visibility<a href="#2-no-visibility" class="hash-link" aria-label="Direct link to 2. No Visibility" title="Direct link to 2. No Visibility" translate="no">​</a></h4>
-<p>When webhooks fail, you often don&#x27;t know why. Was it a network issue? Did your server timeout? Was the payload malformed?</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-difficult-to-debug">3. Difficult to Debug<a href="#3-difficult-to-debug" class="hash-link" aria-label="Direct link to 3. Difficult to Debug" title="Direct link to 3. Difficult to Debug" translate="no">​</a></h4>
-<p>Webhook failures happen at the worst times (deployments, server restarts, traffic spikes) and are hard to reproduce.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-security-concerns">4. Security Concerns<a href="#4-security-concerns" class="hash-link" aria-label="Direct link to 4. Security Concerns" title="Direct link to 4. Security Concerns" translate="no">​</a></h4>
-<p>Verifying webhook signatures is complex and easy to get wrong, leaving your application vulnerable to attacks.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-operational-overhead">5. Operational Overhead<a href="#5-operational-overhead" class="hash-link" aria-label="Direct link to 5. Operational Overhead" title="Direct link to 5. Operational Overhead" translate="no">​</a></h4>
-<p>You need to:</p>
-<ul>
-<li class="">Monitor webhook endpoints</li>
-<li class="">Implement retry logic</li>
-<li class="">Log all webhook events</li>
-<li class="">Handle signature verification</li>
-<li class="">Track failure rates</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-relae-works">How Relae Works<a href="#how-relae-works" class="hash-link" aria-label="Direct link to How Relae Works" title="Direct link to How Relae Works" translate="no">​</a></h2>
-<p>Relae acts as a reliable intermediary that handles all of this for you:</p>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#F8F8F2"><span class="token plain">graph TB</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    A[Vendor&lt;br/&gt;Stripe, Shopify, etc.] --&gt;|Sends Webhook| B[Relae Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    B --&gt;|Validates Signature| B</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    B --&gt;|Stores Event| C[(Database)]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    B --&gt;|Forwards to Destination| D[Your Application]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    D --&gt;|Success 200| B</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    D --&gt;|Failure 500| E[Retry Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    E --&gt;|Exponential Backoff| D</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    E --&gt;|After 5 Failures| F[Dead Letter Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    F --&gt;|Manual Retry| D</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-by-step-process">Step-by-Step Process<a href="#step-by-step-process" class="hash-link" aria-label="Direct link to Step-by-Step Process" title="Direct link to Step-by-Step Process" translate="no">​</a></h3>
-<ol>
-<li class="">
-<p><strong>Vendor Sends Webhook</strong></p>
-<ul>
-<li class="">Your vendor (e.g., Stripe) sends a webhook to your unique Relae endpoint</li>
-<li class="">Example: <code>https://api.relaehook.com/webhook/abc123...</code></li>
-</ul>
-</li>
-<li class="">
-<p><strong>Relae Receives &amp; Validates</strong></p>
-<ul>
-<li class="">Relae receives the webhook immediately</li>
-<li class="">If you provided a vendor webhook secret, Relae verifies the signature</li>
-<li class="">Invalid signatures are rejected (event still stored for debugging)</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Event Storage</strong></p>
-<ul>
-<li class="">Every webhook is stored in our database</li>
-<li class="">Retention period based on your tier (7-30+ days)</li>
-<li class="">Full payload, headers, and metadata preserved</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Forward to Your Application</strong></p>
-<ul>
-<li class="">Relae forwards the webhook to your configured destination URL</li>
-<li class="">Adds Relae-specific headers:<!-- -->
-<ul>
-<li class=""><code>X-Relae-Event-ID</code>: Unique event identifier</li>
-<li class=""><code>X-Relae-Source</code>: The vendor name (e.g., <code>stripe</code>)</li>
-<li class=""><code>X-Relae-Timestamp</code>: Unix timestamp</li>
-<li class=""><code>X-Relae-Signature</code>: HMAC-SHA256 signature for verification</li>
-<li class=""><code>User-Agent</code>: <code>Relae-Webhook-Forwarder/1.0</code></li>
-</ul>
-</li>
-<li class="">Includes any custom headers you configured</li>
-<li class="">Signs the outgoing webhook with HMAC-SHA2565. <strong>Automatic Retry on Failure</strong></li>
-<li class="">If your app returns an error (5xx) or times out</li>
-<li class="">Relae automatically retries up to 5 times</li>
-<li class="">Uses exponential backoff (5s, 25s, 125s, 625s, 3125s)</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Dead Letter Queue</strong></p>
-<ul>
-<li class="">After 5 failed attempts, event moves to DLQ</li>
-<li class="">You can review, debug, and manually retry anytime</li>
-<li class="">Never lose a webhook event</li>
-</ul>
-</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-features-explained">Key Features Explained<a href="#key-features-explained" class="hash-link" aria-label="Direct link to Key Features Explained" title="Direct link to Key Features Explained" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-automatic-retries">🔄 Automatic Retries<a href="#-automatic-retries" class="hash-link" aria-label="Direct link to 🔄 Automatic Retries" title="Direct link to 🔄 Automatic Retries" translate="no">​</a></h3>
-<p>Most webhook providers either don&#x27;t retry at all or have very limited retry logic. Relae retries intelligently:</p>
-<table><thead><tr><th>Attempt</th><th>Delay</th><th>Total Wait Time</th></tr></thead><tbody><tr><td>1st</td><td>Immediate</td><td>0s</td></tr><tr><td>2nd</td><td>5 seconds</td><td>5s</td></tr><tr><td>3rd</td><td>25 seconds</td><td>30s</td></tr><tr><td>4th</td><td>125 seconds</td><td>155s (~2.5 min)</td></tr><tr><td>5th</td><td>625 seconds</td><td>780s (~13 min)</td></tr></tbody></table>
-<p>This gives your application plenty of time to recover from:</p>
-<ul>
-<li class="">Brief outages</li>
-<li class="">Deployments</li>
-<li class="">Database connection issues</li>
-<li class="">Temporary overload</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-dead-letter-queue-dlq">📬 Dead Letter Queue (DLQ)<a href="#-dead-letter-queue-dlq" class="hash-link" aria-label="Direct link to 📬 Dead Letter Queue (DLQ)" title="Direct link to 📬 Dead Letter Queue (DLQ)" translate="no">​</a></h3>
-<p>The DLQ is where events go after exhausting all retries. From the DLQ, you can:</p>
-<ul>
-<li class=""><strong>Review</strong> the full payload and headers</li>
-<li class=""><strong>Debug</strong> why delivery failed</li>
-<li class=""><strong>Manually retry</strong> individual events</li>
-<li class=""><strong>Bulk retry</strong> multiple events</li>
-<li class=""><strong>See failure history</strong> with timestamps</li>
-</ul>
-<p>This means you&#x27;ll never lose critical webhook data.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-security-features">🔐 Security Features<a href="#-security-features" class="hash-link" aria-label="Direct link to 🔐 Security Features" title="Direct link to 🔐 Security Features" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="incoming-webhook-verification">Incoming Webhook Verification<a href="#incoming-webhook-verification" class="hash-link" aria-label="Direct link to Incoming Webhook Verification" title="Direct link to Incoming Webhook Verification" translate="no">​</a></h4>
-<ul>
-<li class="">Relae verifies signatures from your vendor using their signing secret</li>
-<li class="">Invalid signatures are rejected before reaching your app</li>
-<li class="">Supports HMAC-SHA256, HMAC-SHA1, and other common methods</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="outgoing-webhook-signing">Outgoing Webhook Signing<a href="#outgoing-webhook-signing" class="hash-link" aria-label="Direct link to Outgoing Webhook Signing" title="Direct link to Outgoing Webhook Signing" translate="no">​</a></h4>
-<ul>
-<li class="">Every forwarded webhook is signed with HMAC-SHA256</li>
-<li class="">Uses a unique endpoint token per destination</li>
-<li class="">Prevents tampering and replay attacks</li>
-<li class=""><a class="" href="/guides/verifying-signatures">Learn how to verify signatures →</a></li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="endpoint-isolation">Endpoint Isolation<a href="#endpoint-isolation" class="hash-link" aria-label="Direct link to Endpoint Isolation" title="Direct link to Endpoint Isolation" translate="no">​</a></h4>
-<ul>
-<li class="">Each destination gets a unique endpoint URL</li>
-<li class="">If one endpoint is compromised, others remain secure</li>
-<li class="">Rotate endpoints anytime without affecting other integrations</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-monitoring--analytics">📊 Monitoring &amp; Analytics<a href="#-monitoring--analytics" class="hash-link" aria-label="Direct link to 📊 Monitoring &amp; Analytics" title="Direct link to 📊 Monitoring &amp; Analytics" translate="no">​</a></h3>
-<p>Track your webhook health with:</p>
-<ul>
-<li class=""><strong>Success/failure rates</strong> over time</li>
-<li class=""><strong>Response time metrics</strong> from your application</li>
-<li class=""><strong>Event volume charts</strong> by day/hour</li>
-<li class=""><strong>Source breakdown</strong> (which vendors send most events)</li>
-<li class=""><strong>Failed event analysis</strong> (common failure reasons)</li>
-</ul>
-<p>Available on Scale tier and above.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-performance">⚡ Performance<a href="#-performance" class="hash-link" aria-label="Direct link to ⚡ Performance" title="Direct link to ⚡ Performance" translate="no">​</a></h3>
-<p>Relae is built for speed:</p>
-<ul>
-<li class=""><strong>Sub-100ms processing</strong> for most webhooks</li>
-<li class=""><strong>Concurrent delivery</strong> to multiple destinations</li>
-<li class=""><strong>Global infrastructure</strong> for low latency worldwide</li>
-<li class=""><strong>99.9% uptime SLA</strong> (Enterprise tier)</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="architecture">Architecture<a href="#architecture" class="hash-link" aria-label="Direct link to Architecture" title="Direct link to Architecture" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="high-level-overview">High-Level Overview<a href="#high-level-overview" class="hash-link" aria-label="Direct link to High-Level Overview" title="Direct link to High-Level Overview" translate="no">​</a></h3>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#F8F8F2"><span class="token plain">graph LR</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    subgraph &quot;Relae Infrastructure&quot;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        A[API Gateway] --&gt; B[Webhook Receiver]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        B --&gt; C[Validation Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        C --&gt; D[Storage Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        D --&gt; E[(PostgreSQL)]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        D --&gt; F[Delivery Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        F --&gt; G[Retry Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        G --&gt; H[Dead Letter Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    I[Vendors] --&gt;|POST webhook| A</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    F --&gt;|Forward| J[Your Application]</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="components">Components<a href="#components" class="hash-link" aria-label="Direct link to Components" title="Direct link to Components" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>API Gateway</strong>: Handles incoming webhook requests</li>
-<li class=""><strong>Webhook Receiver</strong>: Fast webhook ingestion and validation</li>
-<li class=""><strong>Validation Service</strong>: Verifies vendor signatures</li>
-<li class=""><strong>Storage Service</strong>: Persists events to database</li>
-<li class=""><strong>Delivery Service</strong>: Forwards webhooks to destinations</li>
-<li class=""><strong>Retry Queue</strong>: Manages automatic retry logic</li>
-<li class=""><strong>Dead Letter Queue</strong>: Stores permanently failed events</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="database-schema">Database Schema<a href="#database-schema" class="hash-link" aria-label="Direct link to Database Schema" title="Direct link to Database Schema" translate="no">​</a></h3>
-<p>Events are stored with:</p>
-<ul>
-<li class="">Unique ID</li>
-<li class="">Account ID (your account)</li>
-<li class="">Source (vendor name)</li>
-<li class="">Destination configuration</li>
-<li class="">Full payload (JSON)</li>
-<li class="">All headers</li>
-<li class="">Timestamps (received, forwarded, retried)</li>
-<li class="">Status (pending, delivered, failed)</li>
-<li class="">Retry count</li>
-<li class="">Failed reason (if applicable)</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="use-cases">Use Cases<a href="#use-cases" class="hash-link" aria-label="Direct link to Use Cases" title="Direct link to Use Cases" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="e-commerce-platforms">E-commerce Platforms<a href="#e-commerce-platforms" class="hash-link" aria-label="Direct link to E-commerce Platforms" title="Direct link to E-commerce Platforms" translate="no">​</a></h3>
-<ul>
-<li class="">Process Stripe payment webhooks</li>
-<li class="">Handle Shopify order updates</li>
-<li class="">Track shipping notifications</li>
-<li class="">Manage inventory updates</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="saas-applications">SaaS Applications<a href="#saas-applications" class="hash-link" aria-label="Direct link to SaaS Applications" title="Direct link to SaaS Applications" translate="no">​</a></h3>
-<ul>
-<li class="">User signup events from authentication providers</li>
-<li class="">Subscription changes from billing systems</li>
-<li class="">Support ticket updates from help desk tools</li>
-<li class="">Monitoring alerts from infrastructure tools</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="development-teams">Development Teams<a href="#development-teams" class="hash-link" aria-label="Direct link to Development Teams" title="Direct link to Development Teams" translate="no">​</a></h3>
-<ul>
-<li class="">GitHub push/PR webhooks for CI/CD</li>
-<li class="">Deployment notifications</li>
-<li class="">Error tracking from monitoring services</li>
-<li class="">Security alerts from scanning tools</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="financial-applications">Financial Applications<a href="#financial-applications" class="hash-link" aria-label="Direct link to Financial Applications" title="Direct link to Financial Applications" translate="no">​</a></h3>
-<ul>
-<li class="">Payment confirmations</li>
-<li class="">Transaction updates</li>
-<li class="">Account balance changes</li>
-<li class="">Fraud detection alerts</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="comparison-to-alternatives">Comparison to Alternatives<a href="#comparison-to-alternatives" class="hash-link" aria-label="Direct link to Comparison to Alternatives" title="Direct link to Comparison to Alternatives" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="vs-direct-vendor-integration">vs. Direct Vendor Integration<a href="#vs-direct-vendor-integration" class="hash-link" aria-label="Direct link to vs. Direct Vendor Integration" title="Direct link to vs. Direct Vendor Integration" translate="no">​</a></h3>
-<table><thead><tr><th>Feature</th><th>Direct</th><th>Relae</th></tr></thead><tbody><tr><td>Setup complexity</td><td>Medium</td><td>Easy</td></tr><tr><td>Retry logic</td><td>Limited/None</td><td>Intelligent</td></tr><tr><td>Failure visibility</td><td>Poor</td><td>Excellent</td></tr><tr><td>Dead letter queue</td><td>Manual</td><td>Built-in</td></tr><tr><td>Multi-vendor support</td><td>Individual setup</td><td>Unified</td></tr><tr><td>Signature verification</td><td>DIY</td><td>Handled</td></tr></tbody></table>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="vs-building-your-own">vs. Building Your Own<a href="#vs-building-your-own" class="hash-link" aria-label="Direct link to vs. Building Your Own" title="Direct link to vs. Building Your Own" translate="no">​</a></h3>
-<table><thead><tr><th>Feature</th><th>DIY Solution</th><th>Relae</th></tr></thead><tbody><tr><td>Development time</td><td>Weeks</td><td>Minutes</td></tr><tr><td>Maintenance</td><td>Ongoing</td><td>None</td></tr><tr><td>Monitoring</td><td>Custom</td><td>Built-in</td></tr><tr><td>Scalability</td><td>Your responsibility</td><td>Handled</td></tr><tr><td>Cost</td><td>Engineer time</td><td>$0-65/mo</td></tr><tr><td>Reliability</td><td>Depends on you</td><td>99.9%</td></tr></tbody></table>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="vs-message-queues-rabbitmq-sqs">vs. Message Queues (RabbitMQ, SQS)<a href="#vs-message-queues-rabbitmq-sqs" class="hash-link" aria-label="Direct link to vs. Message Queues (RabbitMQ, SQS)" title="Direct link to vs. Message Queues (RabbitMQ, SQS)" translate="no">​</a></h3>
-<p>Message queues are great for internal events but aren&#x27;t designed for webhooks:</p>
-<table><thead><tr><th>Feature</th><th>Message Queue</th><th>Relae</th></tr></thead><tbody><tr><td>Webhook ingestion</td><td>No</td><td>Yes</td></tr><tr><td>Signature verification</td><td>No</td><td>Yes</td></tr><tr><td>Retry logic</td><td>Basic</td><td>Intelligent</td></tr><tr><td>Dead letter queue</td><td>Yes</td><td>Yes with UI</td></tr><tr><td>Analytics</td><td>Limited</td><td>Comprehensive</td></tr><tr><td>Setup for webhooks</td><td>Complex</td><td>Simple</td></tr></tbody></table>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="pricing--tiers">Pricing &amp; Tiers<a href="#pricing--tiers" class="hash-link" aria-label="Direct link to Pricing &amp; Tiers" title="Direct link to Pricing &amp; Tiers" translate="no">​</a></h2>
-<table><thead><tr><th>Tier</th><th>Price</th><th>Events/mo</th><th>Retention</th><th>Analytics</th></tr></thead><tbody><tr><td>Builder</td><td>$0</td><td>10,000</td><td>7 days</td><td>❌</td></tr><tr><td>Launch</td><td>$35</td><td>100,000</td><td>14 days</td><td>❌</td></tr><tr><td>Scale</td><td>$65</td><td>500,000</td><td>30 days</td><td>✅</td></tr><tr><td>Enterprise</td><td>Custom</td><td>Unlimited</td><td>Custom</td><td>✅</td></tr></tbody></table>
-<p>All tiers include:</p>
-<ul>
-<li class="">Automatic retries</li>
-<li class="">Dead letter queue</li>
-<li class="">HMAC signature verification</li>
-<li class="">Unlimited destinations</li>
-<li class="">Email support</li>
-</ul>
-<p><a href="https://relaehook.com/#pricing" target="_blank" rel="noopener noreferrer" class="">View detailed pricing →</a></p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="limitations">Limitations<a href="#limitations" class="hash-link" aria-label="Direct link to Limitations" title="Direct link to Limitations" translate="no">​</a></h2>
-<p>To set proper expectations:</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rate-limits">Rate Limits<a href="#rate-limits" class="hash-link" aria-label="Direct link to Rate Limits" title="Direct link to Rate Limits" translate="no">​</a></h3>
-<ul>
-<li class="">Free tier: 10,000 events/month</li>
-<li class="">Webhook size: Max 5MB per webhook</li>
-<li class="">Timeout: 30 seconds for destination response</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="retry-policy">Retry Policy<a href="#retry-policy" class="hash-link" aria-label="Direct link to Retry Policy" title="Direct link to Retry Policy" translate="no">​</a></h3>
-<ul>
-<li class="">Maximum 5 retry attempts per event</li>
-<li class="">Total retry window: ~13 minutes</li>
-<li class="">After that, event moves to DLQ</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-retention">Data Retention<a href="#data-retention" class="hash-link" aria-label="Direct link to Data Retention" title="Direct link to Data Retention" translate="no">​</a></h3>
-<ul>
-<li class="">Events auto-delete after retention period</li>
-<li class="">Upgrade tier for longer retention</li>
-<li class="">Export events before they expire</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="supported-signatures">Supported Signatures<a href="#supported-signatures" class="hash-link" aria-label="Direct link to Supported Signatures" title="Direct link to Supported Signatures" translate="no">​</a></h3>
-<p>Currently supports:</p>
-<ul>
-<li class="">HMAC-SHA256 (most common)</li>
-<li class="">HMAC-SHA1 (legacy)</li>
-<li class="">Custom header signatures</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="security--compliance">Security &amp; Compliance<a href="#security--compliance" class="hash-link" aria-label="Direct link to Security &amp; Compliance" title="Direct link to Security &amp; Compliance" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-security">Data Security<a href="#data-security" class="hash-link" aria-label="Direct link to Data Security" title="Direct link to Data Security" translate="no">​</a></h3>
-<ul>
-<li class="">All data encrypted at rest (AES-256)</li>
-<li class="">All connections use TLS 1.2+</li>
-<li class="">SOC 2 Type II certified (Enterprise)</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="privacy">Privacy<a href="#privacy" class="hash-link" aria-label="Direct link to Privacy" title="Direct link to Privacy" translate="no">​</a></h3>
-<ul>
-<li class="">We only store webhook payloads during retention period</li>
-<li class="">No sharing of customer data</li>
-<li class="">GDPR compliant</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="infrastructure">Infrastructure<a href="#infrastructure" class="hash-link" aria-label="Direct link to Infrastructure" title="Direct link to Infrastructure" translate="no">​</a></h3>
-<ul>
-<li class="">Hosted on AWS</li>
-<li class="">Multi-region redundancy</li>
-<li class="">Daily backups</li>
-<li class="">99.9% uptime SLA (Enterprise)</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
-<p>Ready to use Relae?</p>
-<ol>
-<li class=""><a href="https://relaehook.com" target="_blank" rel="noopener noreferrer" class="">Sign up for a free account →</a></li>
-<li class=""><a class="" href="/quickstart/overview">Follow the quick start guide →</a></li>
-<li class=""><a class="" href="/quickstart/setup">Configure your first destination →</a></li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="next-steps">Next Steps<a href="#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps" translate="no">​</a></h2>
-<ul>
-<li class=""><a class="" href="/core-concepts/events">Learn about Events →</a></li>
-<li class=""><a class="" href="/core-concepts/destinations">Understand Destinations →</a></li>
-<li class=""><a class="" href="/core-concepts/retries">Explore Retry Logic →</a></li>
-<li class=""><a class="" href="/api/authentication">View API Documentation →</a></li>
-</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/WillBallentine/relae-docs/tree/main/docs/core-concepts/what-is-relae.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/quickstart/receive-your-first-webhook"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Receive Your First Webhook</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/guides/managing-webhooks"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Managing Webhooks</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#the-problem-relae-solves" class="table-of-contents__link toc-highlight">The Problem Relae Solves</a><ul><li><a href="#webhooks-are-critical-but-unreliable" class="table-of-contents__link toc-highlight">Webhooks Are Critical But Unreliable</a></li></ul></li><li><a href="#how-relae-works" class="table-of-contents__link toc-highlight">How Relae Works</a><ul><li><a href="#step-by-step-process" class="table-of-contents__link toc-highlight">Step-by-Step Process</a></li></ul></li><li><a href="#key-features-explained" class="table-of-contents__link toc-highlight">Key Features Explained</a><ul><li><a href="#-automatic-retries" class="table-of-contents__link toc-highlight">🔄 Automatic Retries</a></li><li><a href="#-dead-letter-queue-dlq" class="table-of-contents__link toc-highlight">📬 Dead Letter Queue (DLQ)</a></li><li><a href="#-security-features" class="table-of-contents__link toc-highlight">🔐 Security Features</a></li><li><a href="#-monitoring--analytics" class="table-of-contents__link toc-highlight">📊 Monitoring &amp; Analytics</a></li><li><a href="#-performance" class="table-of-contents__link toc-highlight">⚡ Performance</a></li></ul></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a><ul><li><a href="#high-level-overview" class="table-of-contents__link toc-highlight">High-Level Overview</a></li><li><a href="#components" class="table-of-contents__link toc-highlight">Components</a></li><li><a href="#database-schema" class="table-of-contents__link toc-highlight">Database Schema</a></li></ul></li><li><a href="#use-cases" class="table-of-contents__link toc-highlight">Use Cases</a><ul><li><a href="#e-commerce-platforms" class="table-of-contents__link toc-highlight">E-commerce Platforms</a></li><li><a href="#saas-applications" class="table-of-contents__link toc-highlight">SaaS Applications</a></li><li><a href="#development-teams" class="table-of-contents__link toc-highlight">Development Teams</a></li><li><a href="#financial-applications" class="table-of-contents__link toc-highlight">Financial Applications</a></li></ul></li><li><a href="#comparison-to-alternatives" class="table-of-contents__link toc-highlight">Comparison to Alternatives</a><ul><li><a href="#vs-direct-vendor-integration" class="table-of-contents__link toc-highlight">vs. Direct Vendor Integration</a></li><li><a href="#vs-building-your-own" class="table-of-contents__link toc-highlight">vs. Building Your Own</a></li><li><a href="#vs-message-queues-rabbitmq-sqs" class="table-of-contents__link toc-highlight">vs. Message Queues (RabbitMQ, SQS)</a></li></ul></li><li><a href="#pricing--tiers" class="table-of-contents__link toc-highlight">Pricing &amp; Tiers</a></li><li><a href="#limitations" class="table-of-contents__link toc-highlight">Limitations</a><ul><li><a href="#rate-limits" class="table-of-contents__link toc-highlight">Rate Limits</a></li><li><a href="#retry-policy" class="table-of-contents__link toc-highlight">Retry Policy</a></li><li><a href="#data-retention" class="table-of-contents__link toc-highlight">Data Retention</a></li><li><a href="#supported-signatures" class="table-of-contents__link toc-highlight">Supported Signatures</a></li></ul></li><li><a href="#security--compliance" class="table-of-contents__link toc-highlight">Security &amp; Compliance</a><ul><li><a href="#data-security" class="table-of-contents__link toc-highlight">Data Security</a></li><li><a href="#privacy" class="table-of-contents__link toc-highlight">Privacy</a></li><li><a href="#infrastructure" class="table-of-contents__link toc-highlight">Infrastructure</a></li></ul></li><li><a href="#getting-started" class="table-of-contents__link toc-highlight">Getting Started</a></li><li><a href="#next-steps" class="table-of-contents__link toc-highlight">Next Steps</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/quickstart/overview">Getting Started</a></li><li class="footer__item"><a class="footer__link-item" href="/core-concepts/what-is-relae">Core Concepts</a></li><li class="footer__item"><a class="footer__link-item" href="/api/authentication">API Reference</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Product</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://relaehook.com/dashboard" target="_blank" rel="noopener noreferrer" class="footer__link-item">Dashboard<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://relaehook.com/#pricing" target="_blank" rel="noopener noreferrer" class="footer__link-item">Pricing<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://relaehook.com" target="_blank" rel="noopener noreferrer" class="footer__link-item">Sign Up<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/WillBallentine/relae-docs" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="mailto:support@relaehook.com" target="_blank" rel="noopener noreferrer" class="footer__link-item">Support<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Relae. Built with Docusaurus.</div></div></div></footer></div>
-</body>
+<html
+  lang="en"
+  dir="ltr"
+  class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-core-concepts/what-is-relae"
+  data-has-hydrated="false"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="generator" content="Docusaurus v3.9.2" />
+    <title data-rh="true">What is Relae? | Relae Documentation</title>
+    <meta
+      data-rh="true"
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    />
+    <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+    <meta
+      data-rh="true"
+      property="og:image"
+      content="https://docs.relaehook.com/img/relae-social-card.png"
+    />
+    <meta
+      data-rh="true"
+      name="twitter:image"
+      content="https://docs.relaehook.com/img/relae-social-card.png"
+    />
+    <meta
+      data-rh="true"
+      property="og:url"
+      content="https://docs.relaehook.com/core-concepts/what-is-relae"
+    />
+    <meta data-rh="true" property="og:locale" content="en" />
+    <meta data-rh="true" name="docusaurus_locale" content="en" />
+    <meta data-rh="true" name="docsearch:language" content="en" />
+    <meta data-rh="true" name="docusaurus_version" content="current" />
+    <meta data-rh="true" name="docusaurus_tag" content="docs-default-current" />
+    <meta data-rh="true" name="docsearch:version" content="current" />
+    <meta
+      data-rh="true"
+      name="docsearch:docusaurus_tag"
+      content="docs-default-current"
+    />
+    <meta
+      data-rh="true"
+      property="og:title"
+      content="What is Relae? | Relae Documentation"
+    />
+    <meta
+      data-rh="true"
+      name="description"
+      content="Relae is a webhook relay service that sits between your vendors (like Stripe, Shopify, GitHub) and your application, ensuring reliable webhook delivery with automatic retries, monitoring, and security features."
+    />
+    <meta
+      data-rh="true"
+      property="og:description"
+      content="Relae is a webhook relay service that sits between your vendors (like Stripe, Shopify, GitHub) and your application, ensuring reliable webhook delivery with automatic retries, monitoring, and security features."
+    />
+    <link data-rh="true" rel="icon" href="/img/favicon.ico" />
+    <link
+      data-rh="true"
+      rel="canonical"
+      href="https://docs.relaehook.com/core-concepts/what-is-relae"
+    />
+    <link
+      data-rh="true"
+      rel="alternate"
+      href="https://docs.relaehook.com/core-concepts/what-is-relae"
+      hreflang="en"
+    />
+    <link
+      data-rh="true"
+      rel="alternate"
+      href="https://docs.relaehook.com/core-concepts/what-is-relae"
+      hreflang="x-default"
+    />
+    <script data-rh="true" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "What is Relae?",
+            "item": "https://docs.relaehook.com/core-concepts/what-is-relae"
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.c4f597b4.css" />
+    <script src="/assets/js/runtime~main.339650ba.js" defer="defer"></script>
+    <script src="/assets/js/main.01ddb77a.js" defer="defer"></script>
+  </head>
+  <body class="navigation-with-keyboard">
+    <svg style="display: none">
+      <defs>
+        <symbol id="theme-svg-external-link" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+    <script>
+      (!(function () {
+        var t =
+          (function () {
+            try {
+              return new URLSearchParams(window.location.search).get(
+                "docusaurus-theme",
+              );
+            } catch (t) {}
+          })() ||
+          (function () {
+            try {
+              return window.localStorage.getItem("theme");
+            } catch (t) {}
+          })();
+        (document.documentElement.setAttribute(
+          "data-theme",
+          t ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"),
+        ),
+          document.documentElement.setAttribute(
+            "data-theme-choice",
+            t || "system",
+          ));
+      })(),
+        (function () {
+          try {
+            const c = new URLSearchParams(window.location.search).entries();
+            for (var [t, e] of c)
+              if (t.startsWith("docusaurus-data-")) {
+                var a = t.replace("docusaurus-data-", "data-");
+                document.documentElement.setAttribute(a, e);
+              }
+          } catch (t) {}
+        })());
+    </script>
+    <div id="__docusaurus">
+      <link rel="preload" as="image" href="/img/relae_logo.svg" />
+      <div role="region" aria-label="Skip to main content">
+        <a
+          class="skipToContent_fXgn"
+          href="#__docusaurus_skipToContent_fallback"
+          >Skip to main content</a
+        >
+      </div>
+      <nav
+        aria-label="Main"
+        class="theme-layout-navbar navbar navbar--fixed-top"
+      >
+        <div class="navbar__inner">
+          <div class="theme-layout-navbar-left navbar__items">
+            <button
+              aria-label="Toggle navigation bar"
+              aria-expanded="false"
+              class="navbar__toggle clean-btn"
+              type="button"
+            >
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                aria-hidden="true"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                  d="M4 7h22M4 15h22M4 23h22"
+                ></path>
+              </svg></button
+            ><a class="navbar__brand" href="/"
+              ><div class="navbar__logo">
+                <img
+                  src="/img/relae_logo.svg"
+                  alt="Relae Logo"
+                  class="themedComponent_mlkZ themedComponent--light_NVdE"
+                /><img
+                  src="/img/relae_logo.svg"
+                  alt="Relae Logo"
+                  class="themedComponent_mlkZ themedComponent--dark_xIcU"
+                />
+              </div>
+              <b class="navbar__title text--truncate">Relae</b></a
+            ><a
+              aria-current="page"
+              class="navbar__item navbar__link navbar__link--active"
+              href="/intro"
+              >Docs</a
+            >
+          </div>
+          <div
+            class="theme-layout-navbar-right navbar__items navbar__items--right"
+          >
+            <a
+              href="https://relaehook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="navbar__item navbar__link"
+              >Home<svg
+                width="13.5"
+                height="13.5"
+                aria-label="(opens in new tab)"
+                class="iconExternalLink_nPIU"
+              >
+                <use href="#theme-svg-external-link"></use></svg></a
+            ><a
+              href="https://relaehook.com/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="navbar__item navbar__link"
+              >Dashboard<svg
+                width="13.5"
+                height="13.5"
+                aria-label="(opens in new tab)"
+                class="iconExternalLink_nPIU"
+              >
+                <use href="#theme-svg-external-link"></use></svg></a
+            ><a
+              href="https://github.com/WillBallentine/relae-docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="navbar__item navbar__link"
+              >GitHub<svg
+                width="13.5"
+                height="13.5"
+                aria-label="(opens in new tab)"
+                class="iconExternalLink_nPIU"
+              >
+                <use href="#theme-svg-external-link"></use></svg
+            ></a>
+            <div class="toggle_vylO colorModeToggle_DEke">
+              <button
+                class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS"
+                type="button"
+                disabled=""
+                title="system mode"
+                aria-label="Switch between dark and light mode (currently system mode)"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                  class="toggleIcon_g3eP lightToggleIcon_pyhR"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"
+                  ></path></svg
+                ><svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                  class="toggleIcon_g3eP darkToggleIcon_wfgR"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"
+                  ></path></svg
+                ><svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                  class="toggleIcon_g3eP systemToggleIcon_QzmC"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="navbarSearchContainer_Bca1"></div>
+          </div>
+        </div>
+        <div role="presentation" class="navbar-sidebar__backdrop"></div>
+      </nav>
+      <div
+        id="__docusaurus_skipToContent_fallback"
+        class="theme-layout-main main-wrapper mainWrapper_z2l0"
+      >
+        <div class="docsWrapper_hBAB">
+          <button
+            aria-label="Scroll back to top"
+            class="clean-btn theme-back-to-top-button backToTopButton_sjWU"
+            type="button"
+          ></button>
+          <div class="docRoot_UBD9">
+            <aside class="theme-doc-sidebar-container docSidebarContainer_YfHR">
+              <div class="sidebarViewport_aRkj">
+                <div class="sidebar_njMd">
+                  <nav
+                    aria-label="Docs sidebar"
+                    class="menu thin-scrollbar menu_SIkG"
+                  >
+                    <ul class="theme-doc-sidebar-menu menu__list">
+                      <li
+                        class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"
+                      >
+                        <a class="menu__link" href="/intro"
+                          ><span title="Introduction" class="linkLabel_WmDU"
+                            >Introduction</span
+                          ></a
+                        >
+                      </li>
+                      <li
+                        class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"
+                      >
+                        <div class="menu__list-item-collapsible">
+                          <a
+                            class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret"
+                            role="button"
+                            aria-expanded="true"
+                            href="/quickstart/overview"
+                            ><span
+                              title="Quick Start"
+                              class="categoryLinkLabel_W154"
+                              >Quick Start</span
+                            ></a
+                          >
+                        </div>
+                        <ul class="menu__list">
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link"
+                              tabindex="0"
+                              href="/quickstart/overview"
+                              ><span
+                                title="Quick Start Overview"
+                                class="linkLabel_WmDU"
+                                >Quick Start Overview</span
+                              ></a
+                            >
+                          </li>
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link"
+                              tabindex="0"
+                              href="/quickstart/setup"
+                              ><span
+                                title="Account Setup"
+                                class="linkLabel_WmDU"
+                                >Account Setup</span
+                              ></a
+                            >
+                          </li>
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link"
+                              tabindex="0"
+                              href="/quickstart/receive-your-first-webhook"
+                              ><span
+                                title="Receive Your First Webhook"
+                                class="linkLabel_WmDU"
+                                >Receive Your First Webhook</span
+                              ></a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                      <li
+                        class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"
+                      >
+                        <div class="menu__list-item-collapsible">
+                          <a
+                            class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active"
+                            role="button"
+                            aria-expanded="true"
+                            href="/core-concepts/what-is-relae"
+                            ><span
+                              title="Core Concepts"
+                              class="categoryLinkLabel_W154"
+                              >Core Concepts</span
+                            ></a
+                          >
+                        </div>
+                        <ul class="menu__list">
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link menu__link--active"
+                              aria-current="page"
+                              tabindex="0"
+                              href="/core-concepts/what-is-relae"
+                              ><span
+                                title="What is Relae?"
+                                class="linkLabel_WmDU"
+                                >What is Relae?</span
+                              ></a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                      <li
+                        class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"
+                      >
+                        <div class="menu__list-item-collapsible">
+                          <a
+                            class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret"
+                            role="button"
+                            aria-expanded="true"
+                            href="/guides/managing-webhooks"
+                            ><span title="Guides" class="categoryLinkLabel_W154"
+                              >Guides</span
+                            ></a
+                          >
+                        </div>
+                        <ul class="menu__list">
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link"
+                              tabindex="0"
+                              href="/guides/managing-webhooks"
+                              ><span
+                                title="Managing Webhooks"
+                                class="linkLabel_WmDU"
+                                >Managing Webhooks</span
+                              ></a
+                            >
+                          </li>
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link"
+                              tabindex="0"
+                              href="/guides/dead-letter-queue"
+                              ><span
+                                title="Dead Letter Queue (DLQ)"
+                                class="linkLabel_WmDU"
+                                >Dead Letter Queue (DLQ)</span
+                              ></a
+                            >
+                          </li>
+                          <li
+                            class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"
+                          >
+                            <a
+                              class="menu__link"
+                              tabindex="0"
+                              href="/guides/verifying-signatures"
+                              ><span
+                                title="Verifying Webhook Signatures"
+                                class="linkLabel_WmDU"
+                                >Verifying Webhook Signatures</span
+                              ></a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </aside>
+            <main class="docMainContainer_TBSr">
+              <div class="container padding-top--md padding-bottom--lg">
+                <div class="row">
+                  <div class="col docItemCol_VOVn">
+                    <div class="docItemContainer_Djhp">
+                      <article>
+                        <nav
+                          class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl"
+                          aria-label="Breadcrumbs"
+                        >
+                          <ul class="breadcrumbs">
+                            <li class="breadcrumbs__item">
+                              <a
+                                aria-label="Home page"
+                                class="breadcrumbs__link"
+                                href="/"
+                                ><svg
+                                  viewBox="0 0 24 24"
+                                  class="breadcrumbHomeIcon_YNFT"
+                                >
+                                  <path
+                                    d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"
+                                    fill="currentColor"
+                                  ></path></svg
+                              ></a>
+                            </li>
+                            <li class="breadcrumbs__item">
+                              <span class="breadcrumbs__link"
+                                >Core Concepts</span
+                              >
+                            </li>
+                            <li
+                              class="breadcrumbs__item breadcrumbs__item--active"
+                            >
+                              <span class="breadcrumbs__link"
+                                >What is Relae?</span
+                              >
+                            </li>
+                          </ul>
+                        </nav>
+                        <div
+                          class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"
+                        >
+                          <button
+                            type="button"
+                            class="clean-btn tocCollapsibleButton_TO0P"
+                          >
+                            On this page
+                          </button>
+                        </div>
+                        <div class="theme-doc-markdown markdown">
+                          <header><h1>What is Relae?</h1></header>
+                          <p>
+                            Relae is a
+                            <strong>webhook relay service</strong> that sits
+                            between your vendors (like Stripe, Shopify, GitHub)
+                            and your application, ensuring reliable webhook
+                            delivery with automatic retries, monitoring, and
+                            security features.
+                          </p>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="the-problem-relae-solves"
+                          >
+                            The Problem Relae Solves<a
+                              href="#the-problem-relae-solves"
+                              class="hash-link"
+                              aria-label="Direct link to The Problem Relae Solves"
+                              title="Direct link to The Problem Relae Solves"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="webhooks-are-critical-but-unreliable"
+                          >
+                            Webhooks Are Critical But Unreliable<a
+                              href="#webhooks-are-critical-but-unreliable"
+                              class="hash-link"
+                              aria-label="Direct link to Webhooks Are Critical But Unreliable"
+                              title="Direct link to Webhooks Are Critical But Unreliable"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>
+                            Modern applications rely on webhooks for real-time
+                            updates:
+                          </p>
+                          <ul>
+                            <li class="">Payment confirmations from Stripe</li>
+                            <li class="">Order updates from Shopify</li>
+                            <li class="">
+                              Code push notifications from GitHub
+                            </li>
+                            <li class="">
+                              Shipping updates from logistics providers
+                            </li>
+                          </ul>
+                          <p>But webhooks have several inherent problems:</p>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="1-lost-events"
+                          >
+                            1. Lost Events<a
+                              href="#1-lost-events"
+                              class="hash-link"
+                              aria-label="Direct link to 1. Lost Events"
+                              title="Direct link to 1. Lost Events"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <p>
+                            If your server is down during maintenance or
+                            experiencing issues, webhooks are simply lost. Most
+                            vendors don&#x27;t retry or have very limited retry
+                            logic.
+                          </p>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="2-no-visibility"
+                          >
+                            2. No Visibility<a
+                              href="#2-no-visibility"
+                              class="hash-link"
+                              aria-label="Direct link to 2. No Visibility"
+                              title="Direct link to 2. No Visibility"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <p>
+                            When webhooks fail, you often don&#x27;t know why.
+                            Was it a network issue? Did your server timeout? Was
+                            the payload malformed?
+                          </p>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="3-difficult-to-debug"
+                          >
+                            3. Difficult to Debug<a
+                              href="#3-difficult-to-debug"
+                              class="hash-link"
+                              aria-label="Direct link to 3. Difficult to Debug"
+                              title="Direct link to 3. Difficult to Debug"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <p>
+                            Webhook failures happen at the worst times
+                            (deployments, server restarts, traffic spikes) and
+                            are hard to reproduce.
+                          </p>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="4-security-concerns"
+                          >
+                            4. Security Concerns<a
+                              href="#4-security-concerns"
+                              class="hash-link"
+                              aria-label="Direct link to 4. Security Concerns"
+                              title="Direct link to 4. Security Concerns"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <p>
+                            Verifying webhook signatures is complex and easy to
+                            get wrong, leaving your application vulnerable to
+                            attacks.
+                          </p>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="5-operational-overhead"
+                          >
+                            5. Operational Overhead<a
+                              href="#5-operational-overhead"
+                              class="hash-link"
+                              aria-label="Direct link to 5. Operational Overhead"
+                              title="Direct link to 5. Operational Overhead"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <p>You need to:</p>
+                          <ul>
+                            <li class="">Monitor webhook endpoints</li>
+                            <li class="">Implement retry logic</li>
+                            <li class="">Log all webhook events</li>
+                            <li class="">Handle signature verification</li>
+                            <li class="">Track failure rates</li>
+                          </ul>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="how-relae-works"
+                          >
+                            How Relae Works<a
+                              href="#how-relae-works"
+                              class="hash-link"
+                              aria-label="Direct link to How Relae Works"
+                              title="Direct link to How Relae Works"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <p>
+                            Relae acts as a reliable intermediary that handles
+                            all of this for you:
+                          </p>
+                          <div
+                            class="language-mermaid codeBlockContainer_Ckt0 theme-code-block"
+                            style="
+                              --prism-color: #f8f8f2;
+                              --prism-background-color: #282a36;
+                            "
+                          >
+                            <div class="codeBlockContent_QJqH">
+                              <pre
+                                tabindex="0"
+                                class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar"
+                                style="
+                                  color: #f8f8f2;
+                                  background-color: #282a36;
+                                "
+                              ><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#F8F8F2"><span class="token plain">graph TB</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    A[Vendor&lt;br/&gt;Stripe, Shopify, etc.] --&gt;|Sends Webhook| B[Relae Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    B --&gt;|Validates Signature| B</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    B --&gt;|Stores Event| C[(Database)]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    B --&gt;|Forwards to Destination| D[Your Application]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    D --&gt;|Success 200| B</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    D --&gt;|Failure 500| E[Retry Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    E --&gt;|Exponential Backoff| D</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    E --&gt;|After 5 Failures| F[Dead Letter Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    F --&gt;|Manual Retry| D</span><br></span></code></pre>
+                            </div>
+                          </div>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="step-by-step-process"
+                          >
+                            Step-by-Step Process<a
+                              href="#step-by-step-process"
+                              class="hash-link"
+                              aria-label="Direct link to Step-by-Step Process"
+                              title="Direct link to Step-by-Step Process"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ol>
+                            <li class="">
+                              <p><strong>Vendor Sends Webhook</strong></p>
+                              <ul>
+                                <li class="">
+                                  Your vendor (e.g., Stripe) sends a webhook to
+                                  your unique Relae endpoint
+                                </li>
+                                <li class="">
+                                  Example:
+                                  <code
+                                    >https://api.relaehook.com/webhook/abc123...</code
+                                  >
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="">
+                              <p>
+                                <strong>Relae Receives &amp; Validates</strong>
+                              </p>
+                              <ul>
+                                <li class="">
+                                  Relae receives the webhook immediately
+                                </li>
+                                <li class="">
+                                  If you provided a vendor webhook secret, Relae
+                                  verifies the signature
+                                </li>
+                                <li class="">
+                                  Invalid signatures are rejected (event still
+                                  stored for debugging)
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="">
+                              <p><strong>Event Storage</strong></p>
+                              <ul>
+                                <li class="">
+                                  Every webhook is stored in our database
+                                </li>
+                                <li class="">
+                                  Retention period based on your tier (7-30+
+                                  days)
+                                </li>
+                                <li class="">
+                                  Full payload, headers, and metadata preserved
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="">
+                              <p>
+                                <strong>Forward to Your Application</strong>
+                              </p>
+                              <ul>
+                                <li class="">
+                                  Relae forwards the webhook to your configured
+                                  destination URL
+                                </li>
+                                <li class="">
+                                  Adds Relae-specific headers:<!-- -->
+                                  <ul>
+                                    <li class="">
+                                      <code>X-Relae-Event-ID</code>: Unique
+                                      event identifier
+                                    </li>
+                                    <li class="">
+                                      <code>X-Relae-Source</code>: The vendor
+                                      name (e.g., <code>stripe</code>)
+                                    </li>
+                                    <li class="">
+                                      <code>X-Relae-Timestamp</code>: Unix
+                                      timestamp
+                                    </li>
+                                    <li class="">
+                                      <code>X-Relae-Signature</code>:
+                                      HMAC-SHA256 signature for verification
+                                    </li>
+                                    <li class="">
+                                      <code>User-Agent</code>:
+                                      <code>Relae-Webhook-Forwarder/1.0</code>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li class="">
+                                  Includes any custom headers you configured
+                                </li>
+                                <li class="">
+                                  Signs the outgoing webhook with HMAC-SHA2565.
+                                  <strong>Automatic Retry on Failure</strong>
+                                </li>
+                                <li class="">
+                                  If your app returns an error (5xx) or times
+                                  out
+                                </li>
+                                <li class="">
+                                  Relae automatically retries up to 5 times
+                                </li>
+                                <li class="">
+                                  Uses exponential backoff (5s, 25s, 125s, 625s,
+                                  3125s)
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="">
+                              <p><strong>Dead Letter Queue</strong></p>
+                              <ul>
+                                <li class="">
+                                  After 5 failed attempts, event moves to DLQ
+                                </li>
+                                <li class="">
+                                  You can review, debug, and manually retry
+                                  anytime
+                                </li>
+                                <li class="">Never lose a webhook event</li>
+                              </ul>
+                            </li>
+                          </ol>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="key-features-explained"
+                          >
+                            Key Features Explained<a
+                              href="#key-features-explained"
+                              class="hash-link"
+                              aria-label="Direct link to Key Features Explained"
+                              title="Direct link to Key Features Explained"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="-automatic-retries"
+                          >
+                            🔄 Automatic Retries<a
+                              href="#-automatic-retries"
+                              class="hash-link"
+                              aria-label="Direct link to 🔄 Automatic Retries"
+                              title="Direct link to 🔄 Automatic Retries"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>
+                            Most webhook providers either don&#x27;t retry at
+                            all or have very limited retry logic. Relae retries
+                            intelligently:
+                          </p>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Attempt</th>
+                                <th>Delay</th>
+                                <th>Total Wait Time</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1st</td>
+                                <td>Immediate</td>
+                                <td>0s</td>
+                              </tr>
+                              <tr>
+                                <td>2nd</td>
+                                <td>5 seconds</td>
+                                <td>5s</td>
+                              </tr>
+                              <tr>
+                                <td>3rd</td>
+                                <td>25 seconds</td>
+                                <td>30s</td>
+                              </tr>
+                              <tr>
+                                <td>4th</td>
+                                <td>125 seconds</td>
+                                <td>155s (~2.5 min)</td>
+                              </tr>
+                              <tr>
+                                <td>5th</td>
+                                <td>625 seconds</td>
+                                <td>780s (~13 min)</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <p>
+                            This gives your application plenty of time to
+                            recover from:
+                          </p>
+                          <ul>
+                            <li class="">Brief outages</li>
+                            <li class="">Deployments</li>
+                            <li class="">Database connection issues</li>
+                            <li class="">Temporary overload</li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="-dead-letter-queue-dlq"
+                          >
+                            📬 Dead Letter Queue (DLQ)<a
+                              href="#-dead-letter-queue-dlq"
+                              class="hash-link"
+                              aria-label="Direct link to 📬 Dead Letter Queue (DLQ)"
+                              title="Direct link to 📬 Dead Letter Queue (DLQ)"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>
+                            The DLQ is where events go after exhausting all
+                            retries. From the DLQ, you can:
+                          </p>
+                          <ul>
+                            <li class="">
+                              <strong>Review</strong> the full payload and
+                              headers
+                            </li>
+                            <li class="">
+                              <strong>Debug</strong> why delivery failed
+                            </li>
+                            <li class="">
+                              <strong>Manually retry</strong> individual events
+                            </li>
+                            <li class="">
+                              <strong>Bulk retry</strong> multiple events
+                            </li>
+                            <li class="">
+                              <strong>See failure history</strong> with
+                              timestamps
+                            </li>
+                          </ul>
+                          <p>
+                            This means you&#x27;ll never lose critical webhook
+                            data.
+                          </p>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="-security-features"
+                          >
+                            🔐 Security Features<a
+                              href="#-security-features"
+                              class="hash-link"
+                              aria-label="Direct link to 🔐 Security Features"
+                              title="Direct link to 🔐 Security Features"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="incoming-webhook-verification"
+                          >
+                            Incoming Webhook Verification<a
+                              href="#incoming-webhook-verification"
+                              class="hash-link"
+                              aria-label="Direct link to Incoming Webhook Verification"
+                              title="Direct link to Incoming Webhook Verification"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <ul>
+                            <li class="">
+                              Relae verifies signatures from your vendor using
+                              their signing secret
+                            </li>
+                            <li class="">
+                              Invalid signatures are rejected before reaching
+                              your app
+                            </li>
+                            <li class="">
+                              Supports HMAC-SHA256, HMAC-SHA1, and other common
+                              methods
+                            </li>
+                          </ul>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="outgoing-webhook-signing"
+                          >
+                            Outgoing Webhook Signing<a
+                              href="#outgoing-webhook-signing"
+                              class="hash-link"
+                              aria-label="Direct link to Outgoing Webhook Signing"
+                              title="Direct link to Outgoing Webhook Signing"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <ul>
+                            <li class="">
+                              Every forwarded webhook is signed with HMAC-SHA256
+                            </li>
+                            <li class="">
+                              Uses a unique endpoint token per destination
+                            </li>
+                            <li class="">
+                              Prevents tampering and replay attacks
+                            </li>
+                            <li class="">
+                              <a class="" href="/guides/verifying-signatures"
+                                >Learn how to verify signatures →</a
+                              >
+                            </li>
+                          </ul>
+                          <h4
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="endpoint-isolation"
+                          >
+                            Endpoint Isolation<a
+                              href="#endpoint-isolation"
+                              class="hash-link"
+                              aria-label="Direct link to Endpoint Isolation"
+                              title="Direct link to Endpoint Isolation"
+                              translate="no"
+                              >​</a
+                            >
+                          </h4>
+                          <ul>
+                            <li class="">
+                              Each destination gets a unique endpoint URL
+                            </li>
+                            <li class="">
+                              If one endpoint is compromised, others remain
+                              secure
+                            </li>
+                            <li class="">
+                              Rotate endpoints anytime without affecting other
+                              integrations
+                            </li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="-monitoring--analytics"
+                          >
+                            📊 Monitoring &amp; Analytics<a
+                              href="#-monitoring--analytics"
+                              class="hash-link"
+                              aria-label="Direct link to 📊 Monitoring &amp; Analytics"
+                              title="Direct link to 📊 Monitoring &amp; Analytics"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>Track your webhook health with:</p>
+                          <ul>
+                            <li class="">
+                              <strong>Success/failure rates</strong> over time
+                            </li>
+                            <li class="">
+                              <strong>Response time metrics</strong> from your
+                              application
+                            </li>
+                            <li class="">
+                              <strong>Event volume charts</strong> by day/hour
+                            </li>
+                            <li class="">
+                              <strong>Source breakdown</strong> (which vendors
+                              send most events)
+                            </li>
+                            <li class="">
+                              <strong>Failed event analysis</strong> (common
+                              failure reasons)
+                            </li>
+                          </ul>
+                          <p>Available on Scale tier and above.</p>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="-performance"
+                          >
+                            ⚡ Performance<a
+                              href="#-performance"
+                              class="hash-link"
+                              aria-label="Direct link to ⚡ Performance"
+                              title="Direct link to ⚡ Performance"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>Relae is built for speed:</p>
+                          <ul>
+                            <li class="">
+                              <strong>Sub-100ms processing</strong> for most
+                              webhooks
+                            </li>
+                            <li class="">
+                              <strong>Concurrent delivery</strong> to multiple
+                              destinations
+                            </li>
+                            <li class="">
+                              <strong>Global infrastructure</strong> for low
+                              latency worldwide
+                            </li>
+                            <li class="">
+                              <strong>99.9% uptime SLA</strong> (Enterprise
+                              tier)
+                            </li>
+                          </ul>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="architecture"
+                          >
+                            Architecture<a
+                              href="#architecture"
+                              class="hash-link"
+                              aria-label="Direct link to Architecture"
+                              title="Direct link to Architecture"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="high-level-overview"
+                          >
+                            High-Level Overview<a
+                              href="#high-level-overview"
+                              class="hash-link"
+                              aria-label="Direct link to High-Level Overview"
+                              title="Direct link to High-Level Overview"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <div
+                            class="language-mermaid codeBlockContainer_Ckt0 theme-code-block"
+                            style="
+                              --prism-color: #f8f8f2;
+                              --prism-background-color: #282a36;
+                            "
+                          >
+                            <div class="codeBlockContent_QJqH">
+                              <pre
+                                tabindex="0"
+                                class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar"
+                                style="
+                                  color: #f8f8f2;
+                                  background-color: #282a36;
+                                "
+                              ><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#F8F8F2"><span class="token plain">graph LR</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    subgraph &quot;Relae Infrastructure&quot;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        A[API Gateway] --&gt; B[Webhook Receiver]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        B --&gt; C[Validation Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        C --&gt; D[Storage Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        D --&gt; E[(PostgreSQL)]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        D --&gt; F[Delivery Service]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        F --&gt; G[Retry Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">        G --&gt; H[Dead Letter Queue]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    I[Vendors] --&gt;|POST webhook| A</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">    F --&gt;|Forward| J[Your Application]</span><br></span></code></pre>
+                            </div>
+                          </div>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="components"
+                          >
+                            Components<a
+                              href="#components"
+                              class="hash-link"
+                              aria-label="Direct link to Components"
+                              title="Direct link to Components"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ol>
+                            <li class="">
+                              <strong>API Gateway</strong>: Handles incoming
+                              webhook requests
+                            </li>
+                            <li class="">
+                              <strong>Webhook Receiver</strong>: Fast webhook
+                              ingestion and validation
+                            </li>
+                            <li class="">
+                              <strong>Validation Service</strong>: Verifies
+                              vendor signatures
+                            </li>
+                            <li class="">
+                              <strong>Storage Service</strong>: Persists events
+                              to database
+                            </li>
+                            <li class="">
+                              <strong>Delivery Service</strong>: Forwards
+                              webhooks to destinations
+                            </li>
+                            <li class="">
+                              <strong>Retry Queue</strong>: Manages automatic
+                              retry logic
+                            </li>
+                            <li class="">
+                              <strong>Dead Letter Queue</strong>: Stores
+                              permanently failed events
+                            </li>
+                          </ol>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="database-schema"
+                          >
+                            Database Schema<a
+                              href="#database-schema"
+                              class="hash-link"
+                              aria-label="Direct link to Database Schema"
+                              title="Direct link to Database Schema"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>Events are stored with:</p>
+                          <ul>
+                            <li class="">Unique ID</li>
+                            <li class="">Account ID (your account)</li>
+                            <li class="">Source (vendor name)</li>
+                            <li class="">Destination configuration</li>
+                            <li class="">Full payload (JSON)</li>
+                            <li class="">All headers</li>
+                            <li class="">
+                              Timestamps (received, forwarded, retried)
+                            </li>
+                            <li class="">
+                              Status (pending, delivered, failed)
+                            </li>
+                            <li class="">Retry count</li>
+                            <li class="">Failed reason (if applicable)</li>
+                          </ul>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="use-cases"
+                          >
+                            Use Cases<a
+                              href="#use-cases"
+                              class="hash-link"
+                              aria-label="Direct link to Use Cases"
+                              title="Direct link to Use Cases"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="e-commerce-platforms"
+                          >
+                            E-commerce Platforms<a
+                              href="#e-commerce-platforms"
+                              class="hash-link"
+                              aria-label="Direct link to E-commerce Platforms"
+                              title="Direct link to E-commerce Platforms"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">Process Stripe payment webhooks</li>
+                            <li class="">Handle Shopify order updates</li>
+                            <li class="">Track shipping notifications</li>
+                            <li class="">Manage inventory updates</li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="saas-applications"
+                          >
+                            SaaS Applications<a
+                              href="#saas-applications"
+                              class="hash-link"
+                              aria-label="Direct link to SaaS Applications"
+                              title="Direct link to SaaS Applications"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">
+                              User signup events from authentication providers
+                            </li>
+                            <li class="">
+                              Subscription changes from billing systems
+                            </li>
+                            <li class="">
+                              Support ticket updates from help desk tools
+                            </li>
+                            <li class="">
+                              Monitoring alerts from infrastructure tools
+                            </li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="development-teams"
+                          >
+                            Development Teams<a
+                              href="#development-teams"
+                              class="hash-link"
+                              aria-label="Direct link to Development Teams"
+                              title="Direct link to Development Teams"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">GitHub push/PR webhooks for CI/CD</li>
+                            <li class="">Deployment notifications</li>
+                            <li class="">
+                              Error tracking from monitoring services
+                            </li>
+                            <li class="">
+                              Security alerts from scanning tools
+                            </li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="financial-applications"
+                          >
+                            Financial Applications<a
+                              href="#financial-applications"
+                              class="hash-link"
+                              aria-label="Direct link to Financial Applications"
+                              title="Direct link to Financial Applications"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">Payment confirmations</li>
+                            <li class="">Transaction updates</li>
+                            <li class="">Account balance changes</li>
+                            <li class="">Fraud detection alerts</li>
+                          </ul>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="comparison-to-alternatives"
+                          >
+                            Comparison to Alternatives<a
+                              href="#comparison-to-alternatives"
+                              class="hash-link"
+                              aria-label="Direct link to Comparison to Alternatives"
+                              title="Direct link to Comparison to Alternatives"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="vs-direct-vendor-integration"
+                          >
+                            vs. Direct Vendor Integration<a
+                              href="#vs-direct-vendor-integration"
+                              class="hash-link"
+                              aria-label="Direct link to vs. Direct Vendor Integration"
+                              title="Direct link to vs. Direct Vendor Integration"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Feature</th>
+                                <th>Direct</th>
+                                <th>Relae</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Setup complexity</td>
+                                <td>Medium</td>
+                                <td>Easy</td>
+                              </tr>
+                              <tr>
+                                <td>Retry logic</td>
+                                <td>Limited/None</td>
+                                <td>Intelligent</td>
+                              </tr>
+                              <tr>
+                                <td>Failure visibility</td>
+                                <td>Poor</td>
+                                <td>Excellent</td>
+                              </tr>
+                              <tr>
+                                <td>Dead letter queue</td>
+                                <td>Manual</td>
+                                <td>Built-in</td>
+                              </tr>
+                              <tr>
+                                <td>Multi-vendor support</td>
+                                <td>Individual setup</td>
+                                <td>Unified</td>
+                              </tr>
+                              <tr>
+                                <td>Signature verification</td>
+                                <td>DIY</td>
+                                <td>Handled</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="vs-building-your-own"
+                          >
+                            vs. Building Your Own<a
+                              href="#vs-building-your-own"
+                              class="hash-link"
+                              aria-label="Direct link to vs. Building Your Own"
+                              title="Direct link to vs. Building Your Own"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Feature</th>
+                                <th>DIY Solution</th>
+                                <th>Relae</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Development time</td>
+                                <td>Weeks</td>
+                                <td>Minutes</td>
+                              </tr>
+                              <tr>
+                                <td>Maintenance</td>
+                                <td>Ongoing</td>
+                                <td>None</td>
+                              </tr>
+                              <tr>
+                                <td>Monitoring</td>
+                                <td>Custom</td>
+                                <td>Built-in</td>
+                              </tr>
+                              <tr>
+                                <td>Scalability</td>
+                                <td>Your responsibility</td>
+                                <td>Handled</td>
+                              </tr>
+                              <tr>
+                                <td>Cost</td>
+                                <td>Engineer time</td>
+                                <td>$0-65/mo</td>
+                              </tr>
+                              <tr>
+                                <td>Reliability</td>
+                                <td>Depends on you</td>
+                                <td>99.9%</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="vs-message-queues-rabbitmq-sqs"
+                          >
+                            vs. Message Queues (RabbitMQ, SQS)<a
+                              href="#vs-message-queues-rabbitmq-sqs"
+                              class="hash-link"
+                              aria-label="Direct link to vs. Message Queues (RabbitMQ, SQS)"
+                              title="Direct link to vs. Message Queues (RabbitMQ, SQS)"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>
+                            Message queues are great for internal events but
+                            aren&#x27;t designed for webhooks:
+                          </p>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Feature</th>
+                                <th>Message Queue</th>
+                                <th>Relae</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Webhook ingestion</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                              </tr>
+                              <tr>
+                                <td>Signature verification</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                              </tr>
+                              <tr>
+                                <td>Retry logic</td>
+                                <td>Basic</td>
+                                <td>Intelligent</td>
+                              </tr>
+                              <tr>
+                                <td>Dead letter queue</td>
+                                <td>Yes</td>
+                                <td>Yes with UI</td>
+                              </tr>
+                              <tr>
+                                <td>Analytics</td>
+                                <td>Limited</td>
+                                <td>Comprehensive</td>
+                              </tr>
+                              <tr>
+                                <td>Setup for webhooks</td>
+                                <td>Complex</td>
+                                <td>Simple</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="pricing--tiers"
+                          >
+                            Pricing &amp; Tiers<a
+                              href="#pricing--tiers"
+                              class="hash-link"
+                              aria-label="Direct link to Pricing &amp; Tiers"
+                              title="Direct link to Pricing &amp; Tiers"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Tier</th>
+                                <th>Price</th>
+                                <th>Events/mo</th>
+                                <th>Retention</th>
+                                <th>Analytics</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Builder</td>
+                                <td>$0</td>
+                                <td>10,000</td>
+                                <td>7 days</td>
+                                <td>❌</td>
+                              </tr>
+                              <tr>
+                                <td>Launch</td>
+                                <td>$35</td>
+                                <td>100,000</td>
+                                <td>14 days</td>
+                                <td>❌</td>
+                              </tr>
+                              <tr>
+                                <td>Scale</td>
+                                <td>$65</td>
+                                <td>500,000</td>
+                                <td>30 days</td>
+                                <td>✅</td>
+                              </tr>
+                              <tr>
+                                <td>Enterprise</td>
+                                <td>Custom</td>
+                                <td>Unlimited</td>
+                                <td>Custom</td>
+                                <td>✅</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <p>All tiers include:</p>
+                          <ul>
+                            <li class="">Automatic retries</li>
+                            <li class="">Dead letter queue</li>
+                            <li class="">HMAC signature verification</li>
+                            <li class="">Unlimited destinations</li>
+                            <li class="">Email support</li>
+                          </ul>
+                          <p>
+                            <a
+                              href="https://relaehook.com/#pricing"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class=""
+                              >View detailed pricing →</a
+                            >
+                          </p>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="limitations"
+                          >
+                            Limitations<a
+                              href="#limitations"
+                              class="hash-link"
+                              aria-label="Direct link to Limitations"
+                              title="Direct link to Limitations"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <p>To set proper expectations:</p>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="rate-limits"
+                          >
+                            Rate Limits<a
+                              href="#rate-limits"
+                              class="hash-link"
+                              aria-label="Direct link to Rate Limits"
+                              title="Direct link to Rate Limits"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">Free tier: 10,000 events/month</li>
+                            <li class="">Webhook size: Max 5MB per webhook</li>
+                            <li class="">
+                              Timeout: 30 seconds for destination response
+                            </li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="retry-policy"
+                          >
+                            Retry Policy<a
+                              href="#retry-policy"
+                              class="hash-link"
+                              aria-label="Direct link to Retry Policy"
+                              title="Direct link to Retry Policy"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">Maximum 5 retry attempts per event</li>
+                            <li class="">Total retry window: ~13 minutes</li>
+                            <li class="">After that, event moves to DLQ</li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="data-retention"
+                          >
+                            Data Retention<a
+                              href="#data-retention"
+                              class="hash-link"
+                              aria-label="Direct link to Data Retention"
+                              title="Direct link to Data Retention"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">
+                              Events auto-delete after retention period
+                            </li>
+                            <li class="">Upgrade tier for longer retention</li>
+                            <li class="">Export events before they expire</li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="supported-signatures"
+                          >
+                            Supported Signatures<a
+                              href="#supported-signatures"
+                              class="hash-link"
+                              aria-label="Direct link to Supported Signatures"
+                              title="Direct link to Supported Signatures"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <p>Currently supports:</p>
+                          <ul>
+                            <li class="">HMAC-SHA256 (most common)</li>
+                            <li class="">HMAC-SHA1 (legacy)</li>
+                            <li class="">Custom header signatures</li>
+                          </ul>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="security--compliance"
+                          >
+                            Security &amp; Compliance<a
+                              href="#security--compliance"
+                              class="hash-link"
+                              aria-label="Direct link to Security &amp; Compliance"
+                              title="Direct link to Security &amp; Compliance"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="data-security"
+                          >
+                            Data Security<a
+                              href="#data-security"
+                              class="hash-link"
+                              aria-label="Direct link to Data Security"
+                              title="Direct link to Data Security"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">
+                              All data encrypted at rest (AES-256)
+                            </li>
+                            <li class="">All connections use TLS 1.2+</li>
+                            <li class="">
+                              SOC 2 Type II certified (Enterprise)
+                            </li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="privacy"
+                          >
+                            Privacy<a
+                              href="#privacy"
+                              class="hash-link"
+                              aria-label="Direct link to Privacy"
+                              title="Direct link to Privacy"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">
+                              We only store webhook payloads during retention
+                              period
+                            </li>
+                            <li class="">No sharing of customer data</li>
+                            <li class="">GDPR compliant</li>
+                          </ul>
+                          <h3
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="infrastructure"
+                          >
+                            Infrastructure<a
+                              href="#infrastructure"
+                              class="hash-link"
+                              aria-label="Direct link to Infrastructure"
+                              title="Direct link to Infrastructure"
+                              translate="no"
+                              >​</a
+                            >
+                          </h3>
+                          <ul>
+                            <li class="">Hosted on AWS</li>
+                            <li class="">Multi-region redundancy</li>
+                            <li class="">Daily backups</li>
+                            <li class="">99.9% uptime SLA (Enterprise)</li>
+                          </ul>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="getting-started"
+                          >
+                            Getting Started<a
+                              href="#getting-started"
+                              class="hash-link"
+                              aria-label="Direct link to Getting Started"
+                              title="Direct link to Getting Started"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <p>Ready to use Relae?</p>
+                          <ol>
+                            <li class="">
+                              <a
+                                href="https://relaehook.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class=""
+                                >Sign up for a free account →</a
+                              >
+                            </li>
+                            <li class="">
+                              <a class="" href="/quickstart/overview"
+                                >Follow the quick start guide →</a
+                              >
+                            </li>
+                            <li class="">
+                              <a class="" href="/quickstart/setup"
+                                >Configure your first destination →</a
+                              >
+                            </li>
+                          </ol>
+                          <h2
+                            class="anchor anchorTargetStickyNavbar_Vzrq"
+                            id="next-steps"
+                          >
+                            Next Steps<a
+                              href="#next-steps"
+                              class="hash-link"
+                              aria-label="Direct link to Next Steps"
+                              title="Direct link to Next Steps"
+                              translate="no"
+                              >​</a
+                            >
+                          </h2>
+                          <ul>
+                            <li class="">
+                              <a class="" href="/core-concepts/events"
+                                >Learn about Events →</a
+                              >
+                            </li>
+                            <li class="">
+                              <a class="" href="/core-concepts/destinations"
+                                >Understand Destinations →</a
+                              >
+                            </li>
+                            <li class="">
+                              <a class="" href="/core-concepts/retries"
+                                >Explore Retry Logic →</a
+                              >
+                            </li>
+                            <li class="">
+                              <a class="" href="/api/authentication"
+                                >View API Documentation →</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                        <footer class="theme-doc-footer docusaurus-mt-lg">
+                          <div
+                            class="row margin-top--sm theme-doc-footer-edit-meta-row"
+                          >
+                            <div class="col noPrint_WFHX">
+                              <a
+                                href="https://github.com/WillBallentine/relae-docs/tree/main/docs/core-concepts/what-is-relae.md"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="theme-edit-this-page"
+                                ><svg
+                                  fill="currentColor"
+                                  height="20"
+                                  width="20"
+                                  viewBox="0 0 40 40"
+                                  class="iconEdit_Z9Sw"
+                                  aria-hidden="true"
+                                >
+                                  <g>
+                                    <path
+                                      d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"
+                                    ></path>
+                                  </g></svg
+                                >Edit this page</a
+                              >
+                            </div>
+                            <div class="col lastUpdated_JAkA"></div>
+                          </div>
+                        </footer>
+                      </article>
+                      <nav
+                        class="docusaurus-mt-lg pagination-nav"
+                        aria-label="Docs pages"
+                      >
+                        <a
+                          class="pagination-nav__link pagination-nav__link--prev"
+                          href="/quickstart/receive-your-first-webhook"
+                          ><div class="pagination-nav__sublabel">Previous</div>
+                          <div class="pagination-nav__label">
+                            Receive Your First Webhook
+                          </div></a
+                        ><a
+                          class="pagination-nav__link pagination-nav__link--next"
+                          href="/guides/managing-webhooks"
+                          ><div class="pagination-nav__sublabel">Next</div>
+                          <div class="pagination-nav__label">
+                            Managing Webhooks
+                          </div></a
+                        >
+                      </nav>
+                    </div>
+                  </div>
+                  <div class="col col--3">
+                    <div
+                      class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"
+                    >
+                      <ul
+                        class="table-of-contents table-of-contents__left-border"
+                      >
+                        <li>
+                          <a
+                            href="#the-problem-relae-solves"
+                            class="table-of-contents__link toc-highlight"
+                            >The Problem Relae Solves</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#webhooks-are-critical-but-unreliable"
+                                class="table-of-contents__link toc-highlight"
+                                >Webhooks Are Critical But Unreliable</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#how-relae-works"
+                            class="table-of-contents__link toc-highlight"
+                            >How Relae Works</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#step-by-step-process"
+                                class="table-of-contents__link toc-highlight"
+                                >Step-by-Step Process</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#key-features-explained"
+                            class="table-of-contents__link toc-highlight"
+                            >Key Features Explained</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#-automatic-retries"
+                                class="table-of-contents__link toc-highlight"
+                                >🔄 Automatic Retries</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#-dead-letter-queue-dlq"
+                                class="table-of-contents__link toc-highlight"
+                                >📬 Dead Letter Queue (DLQ)</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#-security-features"
+                                class="table-of-contents__link toc-highlight"
+                                >🔐 Security Features</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#-monitoring--analytics"
+                                class="table-of-contents__link toc-highlight"
+                                >📊 Monitoring &amp; Analytics</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#-performance"
+                                class="table-of-contents__link toc-highlight"
+                                >⚡ Performance</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#architecture"
+                            class="table-of-contents__link toc-highlight"
+                            >Architecture</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#high-level-overview"
+                                class="table-of-contents__link toc-highlight"
+                                >High-Level Overview</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#components"
+                                class="table-of-contents__link toc-highlight"
+                                >Components</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#database-schema"
+                                class="table-of-contents__link toc-highlight"
+                                >Database Schema</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#use-cases"
+                            class="table-of-contents__link toc-highlight"
+                            >Use Cases</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#e-commerce-platforms"
+                                class="table-of-contents__link toc-highlight"
+                                >E-commerce Platforms</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#saas-applications"
+                                class="table-of-contents__link toc-highlight"
+                                >SaaS Applications</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#development-teams"
+                                class="table-of-contents__link toc-highlight"
+                                >Development Teams</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#financial-applications"
+                                class="table-of-contents__link toc-highlight"
+                                >Financial Applications</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#comparison-to-alternatives"
+                            class="table-of-contents__link toc-highlight"
+                            >Comparison to Alternatives</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#vs-direct-vendor-integration"
+                                class="table-of-contents__link toc-highlight"
+                                >vs. Direct Vendor Integration</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#vs-building-your-own"
+                                class="table-of-contents__link toc-highlight"
+                                >vs. Building Your Own</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#vs-message-queues-rabbitmq-sqs"
+                                class="table-of-contents__link toc-highlight"
+                                >vs. Message Queues (RabbitMQ, SQS)</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#pricing--tiers"
+                            class="table-of-contents__link toc-highlight"
+                            >Pricing &amp; Tiers</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#limitations"
+                            class="table-of-contents__link toc-highlight"
+                            >Limitations</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#rate-limits"
+                                class="table-of-contents__link toc-highlight"
+                                >Rate Limits</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#retry-policy"
+                                class="table-of-contents__link toc-highlight"
+                                >Retry Policy</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#data-retention"
+                                class="table-of-contents__link toc-highlight"
+                                >Data Retention</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#supported-signatures"
+                                class="table-of-contents__link toc-highlight"
+                                >Supported Signatures</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#security--compliance"
+                            class="table-of-contents__link toc-highlight"
+                            >Security &amp; Compliance</a
+                          >
+                          <ul>
+                            <li>
+                              <a
+                                href="#data-security"
+                                class="table-of-contents__link toc-highlight"
+                                >Data Security</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#privacy"
+                                class="table-of-contents__link toc-highlight"
+                                >Privacy</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                href="#infrastructure"
+                                class="table-of-contents__link toc-highlight"
+                                >Infrastructure</a
+                              >
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            href="#getting-started"
+                            class="table-of-contents__link toc-highlight"
+                            >Getting Started</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#next-steps"
+                            class="table-of-contents__link toc-highlight"
+                            >Next Steps</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+      <footer class="theme-layout-footer footer footer--dark">
+        <div class="container container-fluid">
+          <div class="row footer__links">
+            <div class="theme-layout-footer-column col footer__col">
+              <div class="footer__title">Docs</div>
+              <ul class="footer__items clean-list">
+                <li class="footer__item">
+                  <a class="footer__link-item" href="/quickstart/overview"
+                    >Getting Started</a
+                  >
+                </li>
+                <li class="footer__item">
+                  <a
+                    class="footer__link-item"
+                    href="/core-concepts/what-is-relae"
+                    >Core Concepts</a
+                  >
+                </li>
+                <li class="footer__item">
+                  <a class="footer__link-item" href="/api/nodesdk"
+                    >SDK Reference</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="theme-layout-footer-column col footer__col">
+              <div class="footer__title">Product</div>
+              <ul class="footer__items clean-list">
+                <li class="footer__item">
+                  <a
+                    href="https://relaehook.com/dashboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="footer__link-item"
+                    >Dashboard<svg
+                      width="13.5"
+                      height="13.5"
+                      aria-label="(opens in new tab)"
+                      class="iconExternalLink_nPIU"
+                    >
+                      <use href="#theme-svg-external-link"></use></svg
+                  ></a>
+                </li>
+                <li class="footer__item">
+                  <a
+                    href="https://relaehook.com/#pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="footer__link-item"
+                    >Pricing<svg
+                      width="13.5"
+                      height="13.5"
+                      aria-label="(opens in new tab)"
+                      class="iconExternalLink_nPIU"
+                    >
+                      <use href="#theme-svg-external-link"></use></svg
+                  ></a>
+                </li>
+                <li class="footer__item">
+                  <a
+                    href="https://relaehook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="footer__link-item"
+                    >Sign Up<svg
+                      width="13.5"
+                      height="13.5"
+                      aria-label="(opens in new tab)"
+                      class="iconExternalLink_nPIU"
+                    >
+                      <use href="#theme-svg-external-link"></use></svg
+                  ></a>
+                </li>
+              </ul>
+            </div>
+            <div class="theme-layout-footer-column col footer__col">
+              <div class="footer__title">More</div>
+              <ul class="footer__items clean-list">
+                <li class="footer__item">
+                  <a
+                    href="https://github.com/WillBallentine/relae-docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="footer__link-item"
+                    >GitHub<svg
+                      width="13.5"
+                      height="13.5"
+                      aria-label="(opens in new tab)"
+                      class="iconExternalLink_nPIU"
+                    >
+                      <use href="#theme-svg-external-link"></use></svg
+                  ></a>
+                </li>
+                <li class="footer__item">
+                  <a
+                    href="mailto:support@relaehook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="footer__link-item"
+                    >Support<svg
+                      width="13.5"
+                      height="13.5"
+                      aria-label="(opens in new tab)"
+                      class="iconExternalLink_nPIU"
+                    >
+                      <use href="#theme-svg-external-link"></use></svg
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer__bottom text--center">
+            <div class="footer__copyright">
+              Copyright © 2025 Relae. Built with Docusaurus.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
+
