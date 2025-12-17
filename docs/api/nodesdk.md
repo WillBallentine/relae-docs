@@ -549,7 +549,7 @@ All API requests use Bearer token authentication:
 Authorization: Bearer <your-api-key>
 ```
 
-Get your API key from the [Relae dashboard](https://relaehook.com/dashboard).
+Get your API key from your [Relae account page](https://relaehook.com/account).
 
 ⚠️ **Security:** Never commit API keys to version control. Use environment variables:
 
